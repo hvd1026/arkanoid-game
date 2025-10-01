@@ -25,4 +25,11 @@ public abstract class Brick extends GameObject{
     }
 
     public abstract void takeHit();
+
+    public boolean isDestroyed(int hitPoints) {
+        if (hitPoints == 0) {
+            return true;
+        }
+        return false;
+    }
 }
