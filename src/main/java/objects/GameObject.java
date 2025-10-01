@@ -28,6 +28,22 @@ public abstract class GameObject {
         this.y = y;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     // abstract method
     public abstract void update();
 
