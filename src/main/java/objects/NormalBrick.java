@@ -10,7 +10,7 @@ public class NormalBrick extends Brick {
 
     @Override
     public void takeHit() {
-        setHitPoints(1);
+        setHitPoints(getHitPoints() - 1);
     }
 
     @Override
