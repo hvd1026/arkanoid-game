@@ -6,7 +6,7 @@ public class Paddle extends MovableObject {
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
 
     }
 
