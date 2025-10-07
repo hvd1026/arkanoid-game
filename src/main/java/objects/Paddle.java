@@ -1,18 +1,26 @@
 package objects;
 
 public class Paddle extends MovableObject {
-    private final float speed; //Toc do di chuyen cua Paddle
-
     public Paddle(float x, float y, int width, int height) {
         super(x, y, width, height, 0, 0);
     }
 
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void render() {
+
+    }
+
     public void moveLeft() {
-        setDx(-speed);
+//        setDx(-speed);
     }
 
     public void moveRight() {
-        setDx(speed);
+//        setDx(speed);
     }
 
     //Kiem tra va cham
