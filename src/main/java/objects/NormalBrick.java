@@ -3,7 +3,7 @@ package objects;
 public class NormalBrick extends Brick {
 
     public NormalBrick(float x, float y, int width, int height, byte type, int hitPoints) {
-        super(x,y,width,height);
+        super(x, y, width, height);
         setType(type);
         setHitPoints(hitPoints);
     }
@@ -14,7 +14,7 @@ public class NormalBrick extends Brick {
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
 
     }
 
