@@ -8,7 +8,7 @@ public class Ball extends MovableObject {
 
     @Override
     public void update(double deltaTime) {
-        move();
+        move(deltaTime);
     }
 
     @Override
