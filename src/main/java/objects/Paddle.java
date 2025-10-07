@@ -7,7 +7,7 @@ public class Paddle extends MovableObject {
 
     @Override
     public void update(double deltaTime) {
-
+        move(deltaTime);
     }
 
     @Override
@@ -24,10 +24,7 @@ public class Paddle extends MovableObject {
     }
 
     //Kiem tra va cham
-    public boolean checkCollision(GameObject o) {
-        return getX() < o.getX() + o.getWidth() &&
-                getX() + getWidth() > o.getX() &&
-                getY() < o.getY() + o.getHeight() &&
-                getY() + getHeight() > o.getY();
-    }
+//    public boolean checkCollision(GameObject o) {
+//
+//    }
 }
