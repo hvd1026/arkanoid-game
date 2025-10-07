@@ -1,6 +1,6 @@
 package objects;
 
-public class ExpandPaddlePowerUp extends PowerUp{
+public class ExpandPaddlePowerUp extends PowerUp {
     public ExpandPaddlePowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
         setWidth(width);
@@ -8,7 +8,7 @@ public class ExpandPaddlePowerUp extends PowerUp{
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
 
     }
 

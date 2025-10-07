@@ -1,6 +1,6 @@
 package objects;
 
-public class StrongBrick extends Brick{
+public class StrongBrick extends Brick {
 
     public StrongBrick(float x, float y, int width, int height, byte type, int hitPoints) {
         super(x, y, width, height);
@@ -15,7 +15,7 @@ public class StrongBrick extends Brick{
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
 
     }
 
