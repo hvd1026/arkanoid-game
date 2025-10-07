@@ -22,24 +22,19 @@ class BallTest {
     @Test
     @DisplayName("Test Ball Movement 1")
     void testMovement1() {
-        // test with delta time = 1/60s
         Ball ball = new Ball(0, 0, 10, 10, 60, 120); // 60 px/s right, 120 px/s down
-        ball.update();
-        int expectedX = 1; // 0 + 60 * (1/60) = 1
-        int expectedY = 2; // 0 + 120 * (1/60) = 2
-        assertEquals(1, ball.getX(), 0.0000001);
-        assertEquals(2, ball.getY(), 0.0000001);
+        ball.update(1 / 60.0); // Simulate one update (1/60th of a second)
+
+        assertEquals(1, ball.getX(), 0.0000001); // 0 + 60 * (1/60) = 1
+        assertEquals(2, ball.getY(), 0.0000001); // 0 + 120 * (1/60) = 2
     }
 
     @Test
     @DisplayName("Test Ball Movement 2")
     void testMovement2() {
-        // test with delta time = 1/60s
         Ball ball = new Ball(100, 50, 20, 20, -30, 90); // -30 px/s left, 90 px/s down
-        ball.update(); // Simulate one update (1/60th of a second)
-        int expectedX = 99; // 100 + (-30) * (1/60) = 99.5
-        int expectedY = 51; // 50 + 90 * (1/60) = 51.5
-        assertEquals(99.5, ball.getX(), 0.0000001);
-        assertEquals(51.5, ball.getY(), 0.0000001);
+        ball.update(1 / 60.0); // Simulate one update (1/60th of a second)
+        assertEquals(99.5, ball.getX(), 0.0000001); // 100 + (-30) * (1/60) = 99.5
+        assertEquals(51.5, ball.getY(), 0.0000001); // 50 + 90 * (1/60) = 51.5
     }
 }
