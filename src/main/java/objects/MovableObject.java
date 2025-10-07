@@ -25,9 +25,8 @@ public abstract class MovableObject extends GameObject {
         this.dy = dy;
     }
 
-    public void move() {
-        float deltaTime = 1.0f / 60.0f; // placeholder for delta time
-        setX(getX() + dx * deltaTime);
-        setY(getY() + dy * deltaTime);
+    public void move(double deltaTime) {
+        setX(getX() + dx * (float) deltaTime);
+        setY(getY() + dy * (float) deltaTime);
     }
 }
