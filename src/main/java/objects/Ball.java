@@ -7,7 +7,7 @@ public class Ball extends MovableObject {
 
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
         move();
     }
 
@@ -21,6 +21,6 @@ public class Ball extends MovableObject {
     }
 
     public void checkCollision(Object other) {
-        
+
     }
 }
