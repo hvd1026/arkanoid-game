@@ -1,4 +1,6 @@
-package objects;
+package objects.brick;
+
+import java.awt.*;
 
 public class NormalBrick extends Brick {
 
@@ -19,7 +21,7 @@ public class NormalBrick extends Brick {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
 
     }
 }

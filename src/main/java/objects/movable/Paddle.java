@@ -1,4 +1,6 @@
-package objects;
+package objects.movable;
+
+import java.awt.*;
 
 public class Paddle extends MovableObject {
     public Paddle(float x, float y, int width, int height) {
@@ -11,7 +13,7 @@ public class Paddle extends MovableObject {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
 
     }
 
