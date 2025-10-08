@@ -1,9 +1,11 @@
-package objects;
+package objects.powerup;
+
+import objects.GameObject;
 
 import java.awt.*;
 
-public class ExpandPaddlePowerUp extends PowerUp {
-    public ExpandPaddlePowerUp(float x, float y, int width, int height) {
+public class FastBallPowerUp extends PowerUp {
+    public FastBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
         setWidth(width);
         setHeight(height);

@@ -1,4 +1,6 @@
-package objects;
+package objects.movable;
+
+import objects.GameObject;
 
 public abstract class MovableObject extends GameObject {
     float dx, dy; // velocity in x and y directions
