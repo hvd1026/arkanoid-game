@@ -1,5 +1,6 @@
 package objects;
 
+import objects.brick.NormalBrick;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

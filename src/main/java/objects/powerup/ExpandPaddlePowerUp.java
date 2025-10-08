@@ -1,4 +1,8 @@
-package objects;
+package objects.powerup;
+
+import objects.GameObject;
+
+import java.awt.*;
 
 public class ExpandPaddlePowerUp extends PowerUp {
     public ExpandPaddlePowerUp(float x, float y, int width, int height) {
@@ -13,7 +17,7 @@ public class ExpandPaddlePowerUp extends PowerUp {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
 
     }
 

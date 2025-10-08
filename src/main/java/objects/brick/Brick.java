@@ -1,6 +1,8 @@
-package objects;
+package objects.brick;
 
-public abstract class Brick extends GameObject{
+import objects.GameObject;
+
+public abstract class Brick extends GameObject {
     private byte type;
     private int hitPoints;
 

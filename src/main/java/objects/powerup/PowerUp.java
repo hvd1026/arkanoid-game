@@ -1,4 +1,6 @@
-package objects;
+package objects.powerup;
+
+import objects.GameObject;
 
 public abstract class PowerUp extends GameObject {
     private byte type;
@@ -14,15 +16,25 @@ public abstract class PowerUp extends GameObject {
 
     // Getters  and Setters
 
-    public byte getType() { return type; }
+    public byte getType() {
+        return type;
+    }
 
-    public int getDuration() { return duration; }
+    public int getDuration() {
+        return duration;
+    }
 
-    public long getActivatedTime(){ return activatedTime; }
+    public long getActivatedTime() {
+        return activatedTime;
+    }
 
-    public boolean isActivated() { return isActivated; }
+    public boolean isActivated() {
+        return isActivated;
+    }
 
-    public GameObject getAppliedTo() { return appliedTo; }
+    public GameObject getAppliedTo() {
+        return appliedTo;
+    }
 
     public void setType(byte type) {
         this.type = type;
@@ -45,6 +57,7 @@ public abstract class PowerUp extends GameObject {
     }
 
     public abstract void applyEffect(GameObject o);
+
     public abstract void removeEffect(GameObject o);
 
 }
