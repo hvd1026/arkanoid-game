@@ -1,5 +1,7 @@
 package screen;
 
+import java.awt.*;
+
 public class GameOverScreen extends Screen {
 
 
@@ -9,7 +11,7 @@ public class GameOverScreen extends Screen {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
         System.out.println("Rendering Game Over Screen");
     }
 }

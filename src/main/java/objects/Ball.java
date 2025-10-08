@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.*;
+
 public class Ball extends MovableObject {
     public Ball(float x, float y, int weight, int height, float dx, float dy) {
         super(x, y, weight, height, dx, dy);
@@ -12,7 +14,7 @@ public class Ball extends MovableObject {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
         // placeholder
     }
 

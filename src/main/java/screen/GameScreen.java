@@ -1,5 +1,7 @@
 package screen;
 
+import java.awt.*;
+
 public class GameScreen extends Screen {
     @Override
     public void update(double deltaTime) {
@@ -7,7 +9,7 @@ public class GameScreen extends Screen {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
         System.out.println("GameScreen Render");
     }
 }
