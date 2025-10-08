@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.*;
+
 public class StrongBrick extends Brick {
 
     public StrongBrick(float x, float y, int width, int height, byte type, int hitPoints) {
@@ -20,7 +22,7 @@ public class StrongBrick extends Brick {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
 
     }
 }

@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         // render game objects
-        screen.render();
+        screen.render(g2);
         g2.dispose();
     }
 

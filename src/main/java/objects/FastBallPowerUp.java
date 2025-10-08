@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.*;
+
 public class FastBallPowerUp extends PowerUp {
     public FastBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -13,7 +15,7 @@ public class FastBallPowerUp extends PowerUp {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D g) {
 
     }
 
