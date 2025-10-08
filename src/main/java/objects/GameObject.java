@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.*;
+
 public abstract class GameObject {
     private float x, y;
     private int width, height;
@@ -47,5 +49,5 @@ public abstract class GameObject {
     // abstract method
     public abstract void update(double deltaTime);
 
-    public abstract void render();
+    public abstract void render(Graphics2D g);
 }
