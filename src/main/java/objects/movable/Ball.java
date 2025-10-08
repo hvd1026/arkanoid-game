@@ -1,4 +1,4 @@
-package objects;
+package objects.movable;
 
 import java.awt.*;
 

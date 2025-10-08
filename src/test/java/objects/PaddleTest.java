@@ -1,5 +1,6 @@
 package objects;
 
+import objects.movable.Paddle;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
