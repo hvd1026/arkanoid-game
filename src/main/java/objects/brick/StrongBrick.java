@@ -1,4 +1,4 @@
-package objects;
+package objects.brick;
 
 import java.awt.*;
 
