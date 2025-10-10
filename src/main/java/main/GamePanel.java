@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(java.awt.Color.BLACK);
         this.setDoubleBuffered(true); // to improve rendering performance
         this.setFocusable(true); // to receive keyboard inputs
+        this.addKeyListener(util.KeyHandle.getInstance()); // add key listener
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
