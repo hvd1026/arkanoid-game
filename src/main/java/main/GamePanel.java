@@ -2,6 +2,7 @@ package main;
 
 import screen.Screen;
 import screen.ScreenFactory;
+import screen.ScreenManager;
 import util.Constant;
 
 import javax.swing.*;
@@ -9,8 +10,6 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
     private final Thread gameThread;
-    private int currentScreen;
-    Screen screen;
 
     public GamePanel() {
         this.setPreferredSize(new java.awt.Dimension(Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT));
@@ -21,8 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
-        currentScreen = Constant.MENU_SCREEN; // start with the menu screen
-        screen = ScreenFactory.createScreen(currentScreen);
+        ScreenManager.getInstance().switchScreen(ScreenFactory.createScreen(Constant.MENU_SCREEN)); // start with menu screen
     }
 
     public void startGameThread() {
@@ -31,14 +29,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update(double deltaTime) {
         // Update game state
-        screen.update(deltaTime);
+        ScreenManager.getInstance().getCurrentScreen().update(deltaTime);
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         // render game objects
-        screen.render(g2);
+        ScreenManager.getInstance().getCurrentScreen().render(g2);
         g2.dispose();
     }
 
