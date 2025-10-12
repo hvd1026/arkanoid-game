@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         // render game objects
         ScreenManager.getInstance().getCurrentScreen().render(g2);
+        Toolkit.getDefaultToolkit().sync(); // fix lag on linux
         g2.dispose();
     }
 
