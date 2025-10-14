@@ -120,8 +120,8 @@ public class Ball extends MovableObject {
             setX(Constant.SCREEN_WIDTH - getWidth());
             setDx(-getDx());
         }
-        if (getY() <= 0) { // top
-            setY(0);
+        if (getY() <= Constant.GAME_Y_OFFSET) { // top
+            setY(Constant.GAME_Y_OFFSET);
             setDy(-getDy());
         }
     }
