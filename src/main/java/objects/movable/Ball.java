@@ -1,5 +1,6 @@
 package objects.movable;
 
+import objects.brick.Brick;
 import util.Constant;
 
 import java.awt.*;
@@ -42,10 +43,36 @@ public class Ball extends MovableObject {
             float deltaX = centerX - paddleMiddle;
             float ratio = deltaX / (paddle.getWidth() / 2f); // ti le khoang cach
             float bounceAngle = ratio * Constant.BALL_MAX_ANGLE; // goc phan xa ( so voi truc y)
-            
+
             // cap nhat van toc
             setDx(currentSpeed * (float) Math.sin(Math.toRadians(bounceAngle)));
             setDy(-currentSpeed * (float) Math.cos(Math.toRadians(bounceAngle)));
+        }
+
+        // brick
+        if (other instanceof Brick) {
+            Brick brick = (Brick) other;
+            // top brick
+            if (centerY < brick.getY()) {
+                setY(brick.getY() - radius * 2);
+                setDy(-getDy());
+            }
+            // bottom brick
+            else if (centerY > brick.getY() + brick.getHeight()) {
+                setY(brick.getY() + brick.getHeight());
+                setDy(-getDy());
+            }
+            // left brick
+            else if (centerX < brick.getX()) {
+                setX(brick.getX() - radius * 2);
+                setDx(-getDx());
+            }
+            // right brick
+            else if (centerX > brick.getX() + brick.getWidth()) {
+                setX(brick.getX() + brick.getWidth());
+                setDx(-getDx());
+            }
+
         }
     }
 
@@ -58,7 +85,7 @@ public class Ball extends MovableObject {
         // paddle
         if (other instanceof Paddle) {
             Paddle paddle = (Paddle) other;
-            // diem gan ball nhat tren paddle ()
+            // diem gan ball nhat tren paddle
             float closestX = Math.max(paddle.getX(), Math.min(centerX, paddle.getX() + paddle.getWidth()));
             float closestY = Math.max(paddle.getY(), Math.min(centerY, paddle.getY() + paddle.getHeight()));
 
@@ -68,6 +95,20 @@ public class Ball extends MovableObject {
             if (deltaX * deltaX + deltaY * deltaY < radius * radius) { // va cham vi khoang cach < r
                 bounceOff(paddle);
             }
+        }
+
+        // brick
+        if (other instanceof Brick) {
+            Brick brick = (Brick) other;
+            float closestX = Math.max(brick.getX(), Math.min(centerX, brick.getX() + brick.getWidth()));
+            float closestY = Math.max(brick.getY(), Math.min(centerY, brick.getY() + brick.getHeight()));
+            float deltaX = centerX - closestX;
+            float deltaY = centerY - closestY;
+            if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
+                bounceOff(brick);
+                brick.takeHit();
+            }
+
         }
     }
 
@@ -79,8 +120,8 @@ public class Ball extends MovableObject {
             setX(Constant.SCREEN_WIDTH - getWidth());
             setDx(-getDx());
         }
-        if (getY() <= 0) { // top
-            setY(0);
+        if (getY() <= Constant.GAME_Y_OFFSET) { // top
+            setY(Constant.GAME_Y_OFFSET);
             setDy(-getDy());
         }
     }
