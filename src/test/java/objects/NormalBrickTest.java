@@ -12,16 +12,15 @@ class NormalBrickTest {
     @Test
     @DisplayName("Test creation of NormalBrick")
     void testCreation() {
-        brick = new NormalBrick(0, 0, 50, 20, (byte) 1, 2);
+        brick = new NormalBrick(0, 0, 50, 20);
         assertNotNull(brick);
         assertEquals(2, brick.getHitPoints());
-        assertEquals((byte) 1, brick.getType());
     }
 
     @Test
     @DisplayName("Test isDestroyed method")
     void testIsDestroyed() {
-        brick = new NormalBrick(0, 0, 50, 20, (byte) 1, 2);
+        brick = new NormalBrick(0, 0, 50, 20);
         assertFalse(brick.isDestroyed(brick.getHitPoints()));
         brick.takeHit();
         assertFalse(brick.isDestroyed(brick.getHitPoints()));
@@ -32,7 +31,7 @@ class NormalBrickTest {
     @Test
     @DisplayName("Test takeHit method")
     void testTakeHit() {
-        brick = new NormalBrick(0, 0, 50, 20, (byte) 1, 2);
+        brick = new NormalBrick(0, 0, 50, 20);
         assertEquals(2, brick.getHitPoints());
         brick.takeHit();
         assertEquals(1, brick.getHitPoints());
