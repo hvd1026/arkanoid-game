@@ -4,15 +4,9 @@ import java.awt.*;
 
 public class NormalBrick extends Brick {
 
-    public NormalBrick(float x, float y, int width, int height, byte type, int hitPoints) {
+    public NormalBrick(float x, float y, int width, int height) {
         super(x, y, width, height);
-        setType(type);
-        setHitPoints(hitPoints);
-    }
-
-    @Override
-    public void takeHit() {
-        setHitPoints(getHitPoints() - 1);
+        setHitPoints(1); // toi da 1 lan cham.
     }
 
     @Override
@@ -22,6 +16,7 @@ public class NormalBrick extends Brick {
 
     @Override
     public void render(Graphics2D g) {
-
+        g.setColor(Color.green);
+        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
     }
 }
