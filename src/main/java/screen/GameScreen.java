@@ -48,11 +48,14 @@ public class GameScreen extends Screen {
 
     @Override
     public void render(Graphics2D g) {
+
         paddle.render(g);
         ball.render(g);
         for (Brick b : bricks) {
             b.render(g);
         }
+        g.setColor(Color.RED);
+        g.drawLine(0, Constant.GAME_Y_OFFSET, Constant.SCREEN_WIDTH, Constant.GAME_Y_OFFSET);
         g.dispose();
     }
 
