@@ -14,7 +14,7 @@ public class GameScreen extends Screen {
     private Paddle paddle;
     private Ball ball;
     private boolean ballFollowingPaddle = true;
-    
+
     private ArrayList<Brick> bricks;
 
     public GameScreen() {
@@ -38,8 +38,11 @@ public class GameScreen extends Screen {
 
         followPaddle(); // chua bat dau thi bong di theo paddle
         for (Brick b : bricks) {
+            ball.checkCollision(b);
             b.update(deltaTime);
         }
+        // remove brick
+        bricks.removeIf(b -> b.isDestroyed());
     }
 
 

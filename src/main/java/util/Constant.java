@@ -20,8 +20,8 @@ public class Constant {
     // Brick.
     public static final int NORMAL_BRICK = 1;
     public static final int STRONG_BRICK = 2;
-    public static final int BRICK_WIDTH = 80;
-    public static final int BRICK_HEIGHT = 40;
-    public static final int BRICK_ROWS = 10;
-    public static final int BRICK_COLUMNS = 10;
+    public static final int BRICK_WIDTH = 50;
+    public static final int BRICK_HEIGHT = 25;
+    public static final int BRICK_ROWS = 16;
+    public static final int BRICK_COLUMNS = 16;
 }
