@@ -1,7 +1,6 @@
 package main;
 
-import screen.Screen;
-import screen.ScreenFactory;
+import screen.GameScreen;
 import screen.ScreenManager;
 import util.Constant;
 
@@ -20,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
-        ScreenManager.getInstance().switchScreen(ScreenFactory.createScreen(Constant.GAME_SCREEN)); // start with menu screen
+        ScreenManager.getInstance().switchScreen(new GameScreen()); // start with menu screen
     }
 
     public void startGameThread() {

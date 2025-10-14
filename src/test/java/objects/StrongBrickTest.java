@@ -22,11 +22,11 @@ class StrongBrickTest {
     @DisplayName("Test isDestroyed method")
     void testIsDestroyed() {
         brick = new StrongBrick(0, 0, 50, 20);
-        assertFalse(brick.isDestroyed(brick.getHitPoints()));
+        assertFalse(brick.isDestroyed());
         brick.takeHit();
-        assertFalse(brick.isDestroyed(brick.getHitPoints()));
+        assertFalse(brick.isDestroyed());
         brick.takeHit();
-        assertTrue(brick.isDestroyed(brick.getHitPoints()));
+        assertTrue(brick.isDestroyed());
     }
 
     @Test
