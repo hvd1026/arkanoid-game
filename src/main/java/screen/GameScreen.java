@@ -1,16 +1,21 @@
 package screen;
 
+import objects.brick.*;
 import objects.movable.Ball;
 import objects.movable.Paddle;
 import util.Constant;
 import util.KeyHandle;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameScreen extends Screen {
     private Paddle paddle;
     private Ball ball;
     private boolean ballFollowingPaddle = true;
+
+    private BrickManager brickManager = new BrickManager();
+    private ArrayList<Brick> bricks;
 
     public GameScreen() {
         paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2,
@@ -19,6 +24,9 @@ public class GameScreen extends Screen {
         float ballX = paddle.getX() + paddle.getWidth() / 2 - Constant.BALL_RADIUS;
         float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
         ball = new Ball(ballX, ballY, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS, 0, 0);
+
+        brickManager.CreateBrick1(); // tạo map.
+        bricks = brickManager.getBricks();
     }
 
     void followPaddle() {
@@ -48,9 +56,15 @@ public class GameScreen extends Screen {
         followPaddle(); // chua bat dau thi bong di theo paddle
     }
 
+
+
     @Override
     public void render(Graphics2D g) {
         paddle.render(g);
         ball.render(g);
+        for ( Brick b : bricks) {
+            b.render(g);
+        }
+        g.dispose();
     }
 }

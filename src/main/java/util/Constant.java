@@ -21,4 +21,8 @@ public class Constant {
     public static final int BALL_RADIUS = 10;
     public static final float BALL_SPEED = 300;
     public static final float BALL_MAX_ANGLE = 60f; // goc pxa lon nhat
+
+    // Brick.
+    public static final int BRICK_WIDTH = 80;
+    public static final int BRICK_HEIGHT = 20;
 }
