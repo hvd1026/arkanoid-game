@@ -4,17 +4,11 @@ import java.awt.*;
 
 public class StrongBrick extends Brick {
 
-    public StrongBrick(float x, float y, int width, int height, byte type, int hitPoints) {
+    public StrongBrick(float x, float y, int width, int height) {
         super(x, y, width, height);
-        setType(type);
-        setHitPoints(hitPoints);
+        setHitPoints(2); // toi da 2 lan cham.
     }
 
-
-    @Override
-    public void takeHit() {
-        setHitPoints(getHitPoints() - 1);
-    }
 
     @Override
     public void update(double deltaTime) {
@@ -23,6 +17,7 @@ public class StrongBrick extends Brick {
 
     @Override
     public void render(Graphics2D g) {
-
+        g.setColor(Color.blue);
+        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
     }
 }
