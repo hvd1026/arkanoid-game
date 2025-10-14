@@ -26,7 +26,7 @@ public abstract class Brick extends GameObject {
     }
 
     // ham kiem tra gach bi pha.
-    public boolean isDestroyed(int hitPoints) {
+    public boolean isDestroyed() {
         if (hitPoints <= 0) {
             return true;
         }
