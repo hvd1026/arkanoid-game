@@ -1,5 +1,7 @@
 package objects.brick;
 
+import util.AssetManager;
+
 import java.awt.*;
 
 public class NormalBrick extends Brick {
@@ -16,7 +18,6 @@ public class NormalBrick extends Brick {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.green);
-        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, util.Constant.NORMAL_BRICK_IMG_1, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 }
