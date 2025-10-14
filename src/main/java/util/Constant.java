@@ -6,11 +6,6 @@ public class Constant {
     public static final int FPS = 60;
     public static final String TITLE = "Arkanoid Game";
 
-    // Screen
-    public static final int MENU_SCREEN = 0;
-    public static final int GAME_SCREEN = 1;
-    public static final int GAME_OVER_SCREEN = 2;
-
     // Paddle
     public static final int PADDLE_WIDTH = 100;
     public static final int PADDLE_HEIGHT = 20;
@@ -23,6 +18,10 @@ public class Constant {
     public static final float BALL_MAX_ANGLE = 60f; // goc pxa lon nhat
 
     // Brick.
+    public static final int NORMAL_BRICK = 1;
+    public static final int STRONG_BRICK = 2;
     public static final int BRICK_WIDTH = 80;
-    public static final int BRICK_HEIGHT = 20;
+    public static final int BRICK_HEIGHT = 40;
+    public static final int BRICK_ROWS = 10;
+    public static final int BRICK_COLUMNS = 10;
 }
