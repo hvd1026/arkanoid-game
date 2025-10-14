@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public abstract class Brick extends GameObject {
     private int hitPoints;// so lan cham de gach bi pha huy.
-    private ArrayList<Brick> bricks = new ArrayList<>();
 
     public Brick(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -28,7 +27,7 @@ public abstract class Brick extends GameObject {
 
     // ham kiem tra gach bi pha.
     public boolean isDestroyed(int hitPoints) {
-        if (hitPoints == 0) {
+        if (hitPoints <= 0) {
             return true;
         }
         return false;
