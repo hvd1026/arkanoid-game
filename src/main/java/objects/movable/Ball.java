@@ -23,9 +23,7 @@ public class Ball extends MovableObject {
 
     @Override
     public void render(Graphics2D g) {
-        // placeholder
-        g.setColor(Color.WHITE);
-        g.fillOval((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, Constant.BALL_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
     public void bounceOff(Object other) {

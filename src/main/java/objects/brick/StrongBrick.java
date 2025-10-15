@@ -20,8 +20,11 @@ public class StrongBrick extends Brick {
 
     @Override
     public void render(Graphics2D g) {
-//        g.setColor(Color.blue);
-//        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
         AssetManager.getInstance().draw(g, Constant.STRONG_BRICK_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
+    }
+
+    @Override
+    public void takeHit() {
+        return;
     }
 }
