@@ -15,14 +15,20 @@ public class AssetManager {
 
     public void draw(Graphics2D g, int id, int x, int y, int width, int height) {
         switch (id) {
+            case Constant.PADDLE_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 35, 120, 55, null);
+                break;
             case Constant.NORMAL_BRICK_IMG_1:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 0, 59, 30, null);
+                break;
+
+            case Constant.STRONG_BRICK_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 370, 0, 430, 30, null);
                 break;
             default:
                 System.out.println("Asset not found: " + id);
                 break;
         }
-
     }
 
     private void loadSpriteSheet() {
