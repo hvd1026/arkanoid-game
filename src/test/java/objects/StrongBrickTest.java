@@ -13,27 +13,26 @@ class StrongBrickTest {
     @Test
     @DisplayName("Test creation of StrongBrick")
     void testCreation() {
-        brick = new StrongBrick(0, 0, 50, 20, (byte) 2, 10);
+        brick = new StrongBrick(0, 0, 50, 20);
         assertNotNull(brick);
         assertEquals(10, brick.getHitPoints());
-        assertEquals((byte) 2, brick.getType());
     }
 
     @Test
     @DisplayName("Test isDestroyed method")
     void testIsDestroyed() {
-        brick = new StrongBrick(0, 0, 50, 20, (byte) 2, 2);
-        assertFalse(brick.isDestroyed(brick.getHitPoints()));
+        brick = new StrongBrick(0, 0, 50, 20);
+        assertFalse(brick.isDestroyed());
         brick.takeHit();
-        assertFalse(brick.isDestroyed(brick.getHitPoints()));
+        assertFalse(brick.isDestroyed());
         brick.takeHit();
-        assertTrue(brick.isDestroyed(brick.getHitPoints()));
+        assertTrue(brick.isDestroyed());
     }
 
     @Test
     @DisplayName("Test takeHit method")
     void testTakeHit() {
-        brick = new StrongBrick(0, 0, 50, 20, (byte) 2, 2);
+        brick = new StrongBrick(0, 0, 50, 20);
         assertEquals(2, brick.getHitPoints());
         brick.takeHit();
         assertEquals(1, brick.getHitPoints());

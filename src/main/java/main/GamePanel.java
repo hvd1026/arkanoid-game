@@ -1,8 +1,8 @@
 package main;
 
-import screen.Screen;
-import screen.ScreenFactory;
+import screen.GameScreen;
 import screen.ScreenManager;
+import util.AssetManager;
 import util.Constant;
 
 import javax.swing.*;
@@ -20,7 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
-        ScreenManager.getInstance().switchScreen(ScreenFactory.createScreen(Constant.GAME_SCREEN)); // start with menu screen
+        ScreenManager.getInstance().switchScreen(new GameScreen()); // start with menu screen
+        AssetManager.getInstance(); // load assets
     }
 
     public void startGameThread() {
