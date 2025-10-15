@@ -25,4 +25,7 @@ public class Constant {
     public static final int BRICK_HEIGHT = 25;
     public static final int BRICK_ROWS = 16;
     public static final int BRICK_COLUMNS = 16;
+
+    // Assets
+    public static final int NORMAL_BRICK_IMG_1 = 1;
 }
