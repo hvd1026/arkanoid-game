@@ -8,8 +8,8 @@ public class Constant {
     public static final int GAME_Y_OFFSET = 50; // padding top
 
     // Paddle
-    public static final int PADDLE_WIDTH = 100;
-    public static final int PADDLE_HEIGHT = 20;
+    public static final int PADDLE_WIDTH = 80;
+    public static final int PADDLE_HEIGHT = 15;
     public static final int PADDLE_Y_OFFSET = 15; // khoang cach tu bottom den paddle
     public static final float PADDLE_SPEED = 300;
 
@@ -20,12 +20,20 @@ public class Constant {
 
     // Brick.
     public static final int NORMAL_BRICK = 1;
-    public static final int STRONG_BRICK = 2;
+    public static final int STRONG_BRICK = -1;
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 25;
     public static final int BRICK_ROWS = 16;
     public static final int BRICK_COLUMNS = 16;
 
     // Assets
+    public static final int PADDLE_IMG = 0;
+    public static final int STRONG_BRICK_IMG = -1;
     public static final int NORMAL_BRICK_IMG_1 = 1;
+    public static final int NORMAL_BRICK_IMG_2 = 2;
+    public static final int NORMAL_BRICK_IMG_3 = 3;
+    public static final int NORMAL_BRICK_IMG_4 = 4;
+    public static final int NORMAL_BRICK_IMG_5 = 5;
+    public static final int NORMAL_BRICK_IMG_6 = 6;
+    public static final int BALL_IMG = 7;
 }
