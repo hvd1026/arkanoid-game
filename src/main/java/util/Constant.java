@@ -27,5 +27,7 @@ public class Constant {
     public static final int BRICK_COLUMNS = 16;
 
     // Assets
+    public static final int PADDLE_IMG = 0;
     public static final int NORMAL_BRICK_IMG_1 = 1;
+    public static final int STRONG_BRICK_IMG = -1;
 }
