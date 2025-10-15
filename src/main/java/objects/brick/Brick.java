@@ -1,37 +1,37 @@
 package objects.brick;
 
 import objects.GameObject;
+import util.Constant;
+
+import java.util.ArrayList;
 
 public abstract class Brick extends GameObject {
-    private byte type;
-    private int hitPoints;
+    private int hitPoints;// so lan cham de gach bi pha huy.
 
     public Brick(float x, float y, int width, int height) {
         super(x, y, width, height);
-    }
-
-    public byte getType() {
-        return type;
     }
 
     public int getHitPoints() {
         return hitPoints;
     }
 
-    public void setType(byte type) {
-        this.type = type;
-    }
-
     public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
     }
 
-    public abstract void takeHit();
+    // do ben cua gach sau khi cham bong.
+    public void takeHit() {
+        setHitPoints(getHitPoints() - 1);
+    }
 
-    public boolean isDestroyed(int hitPoints) {
-        if (hitPoints == 0) {
+    // ham kiem tra gach bi pha.
+    public boolean isDestroyed() {
+        if (hitPoints <= 0) {
             return true;
         }
         return false;
     }
+
+
 }

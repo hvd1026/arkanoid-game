@@ -10,9 +10,7 @@ public class App {
         window.setTitle(Constant.TITLE);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setLocationRelativeTo(null); // Center the window
-        window.setVisible(true);
-
+        
         // add GamePanel to the window
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -20,5 +18,8 @@ public class App {
 
         // Start the game loop
         gamePanel.startGameThread();
+
+        window.setVisible(true);
+        window.setLocationRelativeTo(null); // Center the window
     }
 }

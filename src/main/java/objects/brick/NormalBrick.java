@@ -1,18 +1,14 @@
 package objects.brick;
 
+import util.AssetManager;
+
 import java.awt.*;
 
 public class NormalBrick extends Brick {
 
-    public NormalBrick(float x, float y, int width, int height, byte type, int hitPoints) {
+    public NormalBrick(float x, float y, int width, int height) {
         super(x, y, width, height);
-        setType(type);
-        setHitPoints(hitPoints);
-    }
-
-    @Override
-    public void takeHit() {
-        setHitPoints(getHitPoints() - 1);
+        setHitPoints(1); // toi da 1 lan cham.
     }
 
     @Override
@@ -22,6 +18,6 @@ public class NormalBrick extends Brick {
 
     @Override
     public void render(Graphics2D g) {
-
+        AssetManager.getInstance().draw(g, util.Constant.NORMAL_BRICK_IMG_1, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 }
