@@ -1,6 +1,7 @@
 package objects.movable;
 
 import objects.brick.Brick;
+import util.AssetManager;
 import util.Constant;
 
 import java.awt.*;

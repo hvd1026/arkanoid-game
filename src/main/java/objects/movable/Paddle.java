@@ -1,5 +1,6 @@
 package objects.movable;
 
+import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
 
@@ -25,8 +26,11 @@ public class Paddle extends MovableObject {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.RED);
-        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+//        g.setColor(Color.RED);
+//        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, Constant.PADDLE_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
+
+
     }
 
     public void moveLeft() {
