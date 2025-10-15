@@ -18,6 +18,9 @@ public class AssetManager {
             case Constant.PADDLE_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 35, 120, 55, null);
                 break;
+            case Constant.BALL_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 122, 32, 149, 57, null);
+                break;
             case Constant.NORMAL_BRICK_IMG_1:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 0, 59, 30, null);
                 break;
