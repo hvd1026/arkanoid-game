@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Arrays;
+
 import objects.brick.Brick;
 import objects.brick.BrickFactory;
 
@@ -14,7 +16,7 @@ public class Map {
         bricks = new ArrayList<>();
     }
 
-    public void load() {
+    public void load(String level) {
         // sample map
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -40,7 +42,10 @@ public class Map {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] != 0)
-                    bricks.add(BrickFactory.createBrick(map[i][j], j * Constant.BRICK_WIDTH, Constant.GAME_Y_OFFSET + i * Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT));
+                    bricks.add(BrickFactory.createBrick(map[i][j],
+                            j * Constant.BRICK_WIDTH,
+                            Constant.GAME_Y_OFFSET + i * Constant.BRICK_HEIGHT,
+                            Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT));
             }
         }
     }
