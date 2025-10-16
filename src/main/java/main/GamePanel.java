@@ -1,9 +1,11 @@
 package main;
 
+import screen.MenuScreen;
 import screen.GameScreen;
 import screen.ScreenManager;
 import util.AssetManager;
 import util.Constant;
+import util.KeyHandle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final Thread gameThread;
 
     public GamePanel() {
+
         this.setPreferredSize(new java.awt.Dimension(Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT));
         this.setBackground(java.awt.Color.BLACK);
         this.setDoubleBuffered(true); // to improve rendering performance
@@ -20,7 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
-        ScreenManager.getInstance().switchScreen(new GameScreen()); // start with menu screen
+        ScreenManager.getInstance().switchScreen(new GameScreen());
+
         AssetManager.getInstance(); // load assets
     }
 
