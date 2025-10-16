@@ -34,18 +34,33 @@ public class Ball extends MovableObject {
 
         if (other instanceof Paddle) {
             Paddle paddle = (Paddle) other;
-            setY(paddle.getY() - radius * 2); // cho bong len tren paddle, tranh ket
-            float currentSpeed = (float) Math.sqrt(getDx() * getDx() + getDy() * getDy());
+            if (centerY < paddle.getY()) { // va cham tren
+                float currentSpeed = (float) Math.sqrt(getDx() * getDx() + getDy() * getDy());
+                // goc phan xa
+                float paddleMiddle = paddle.getX() + paddle.getWidth() / 2f;
+                float deltaX = centerX - paddleMiddle;
+                float ratio = deltaX / (paddle.getWidth() / 2f); // ti le khoang cach
+                float bounceAngle = ratio * Constant.BALL_MAX_ANGLE; // goc phan xa ( so voi truc y)
 
-            // goc phan xa
-            float paddleMiddle = paddle.getX() + paddle.getWidth() / 2f;
-            float deltaX = centerX - paddleMiddle;
-            float ratio = deltaX / (paddle.getWidth() / 2f); // ti le khoang cach
-            float bounceAngle = ratio * Constant.BALL_MAX_ANGLE; // goc phan xa ( so voi truc y)
-
-            // cap nhat van toc
-            setDx(currentSpeed * (float) Math.sin(Math.toRadians(bounceAngle)));
-            setDy(-currentSpeed * (float) Math.cos(Math.toRadians(bounceAngle)));
+                // cap nhat van toc
+                setDx(currentSpeed * (float) Math.sin(Math.toRadians(bounceAngle)));
+                setDy(-currentSpeed * (float) Math.cos(Math.toRadians(bounceAngle)));
+            }
+            // bottom paddle
+            else if (centerY > paddle.getY() + paddle.getHeight()) {
+                setY(paddle.getY() + paddle.getHeight());
+                setDy(-getDy());
+            }
+            // left paddle
+            else if (centerX < paddle.getX()) {
+                setX(paddle.getX() - radius * 2);
+                setDx(-getDx());
+            }
+            // right paddle
+            else if (centerX > paddle.getX() + paddle.getWidth()) {
+                setX(paddle.getX() + paddle.getWidth());
+                setDx(-getDx());
+            }
         }
 
         // brick
