@@ -23,8 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
-        ScreenManager.getInstance().switchScreen(new GameScreen());
-
+        ScreenManager.getInstance().switchScreen(new GameScreen(1)); // start with menu screen
         AssetManager.getInstance(); // load assets
     }
 
