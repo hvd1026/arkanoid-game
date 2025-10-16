@@ -1,5 +1,8 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 
 import objects.brick.Brick;
@@ -11,34 +14,36 @@ public class Map {
     private int[][] map;
     private ArrayList<Brick> bricks;
 
-    public Map() {
+    public int mapLevel;
+
+    public Map(int chooseLevel) {
         map = new int[Constant.BRICK_ROWS][Constant.BRICK_COLUMNS];
         bricks = new ArrayList<>();
+        mapLevel = chooseLevel;
+        load();
     }
 
-    public void load(String level) {
-        // sample map
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = 0;
+    public void load() {
+        String filePath = "src/main/resources/maps/level" + mapLevel + ".txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int row = 0;
+            while ((line = br.readLine()) != null && row < Constant.BRICK_ROWS) {
+                String[] values = line.split(" ");
+                for (int col = 0; col < Math.min(values.length, Constant.BRICK_COLUMNS); col++) {
+                    map[row][col] = Integer.parseInt(values[col]);
+                }
+                row++;
             }
-        }
-        for (int j = 0; j < map[0].length; j++) {
-            if (j % 2 == 0) {
-                map[0][j] = Constant.NORMAL_BRICK;
-            } else {
-                map[0][j] = Constant.STRONG_BRICK;
-            }
-        }
-        for (int j = 0; j < map[0].length; j++) {
-            if (j % 2 == 0) {
-                map[1][j] = Constant.STRONG_BRICK;
-            } else {
-                map[2][j] = Constant.NORMAL_BRICK;
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Fill map with 0s in case of error
+            for (int i = 0; i < Constant.BRICK_ROWS; i++)
+                Arrays.fill(map[i], 0);
         }
 
         // create bricks from map
+        bricks.clear();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] != 0)
@@ -49,6 +54,7 @@ public class Map {
             }
         }
     }
+
 
     public ArrayList<Brick> getBricks() {
         return bricks;
