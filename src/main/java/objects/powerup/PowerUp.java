@@ -59,5 +59,4 @@ public abstract class PowerUp extends GameObject {
     public abstract void applyEffect(GameObject o);
 
     public abstract void removeEffect(GameObject o);
-
 }
