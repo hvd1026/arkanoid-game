@@ -5,7 +5,7 @@ public class Constant {
     public static final int SCREEN_HEIGHT = 600;
     public static final int FPS = 60;
     public static final String TITLE = "Arkanoid Game";
-    public static final int GAME_Y_OFFSET = 50; // padding top
+    public static final int GAME_Y_OFFSET = 60; // padding top
 
     // Paddle
     public static final int PADDLE_WIDTH = 80;
