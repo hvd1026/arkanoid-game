@@ -1,6 +1,7 @@
 package objects.brick;
 
 import util.AssetManager;
+import util.Constant;
 
 import java.awt.*;
 
@@ -27,5 +28,12 @@ public class NormalBrick extends Brick {
     @Override
     public void render(Graphics2D g) {
         AssetManager.getInstance().draw(g, style, (int) getX(), (int) getY(), getWidth(), getHeight());
+//        AssetManager.getInstance().draw(g, Constant.NORMAL_BRICK_IMG_2, (int) getX(), (int) getY(), getWidth(), getHeight());
+//        AssetManager.getInstance().draw(g, Constant.NORMAL_BRICK_IMG_3, (int) getX(), (int) getY(), getWidth(), getHeight());
+//        AssetManager.getInstance().draw(g, Constant.NORMAL_BRICK_IMG_4, (int) getX(), (int) getY(), getWidth(), getHeight());
+//        AssetManager.getInstance().draw(g, Constant.NORMAL_BRICK_IMG_5, (int) getX(), (int) getY(), getWidth(), getHeight());
+//        AssetManager.getInstance().draw(g, Constant.NORMAL_BRICK_IMG_6, (int) getX(), (int) getY(), getWidth(), getHeight());
+
+
     }
 }
