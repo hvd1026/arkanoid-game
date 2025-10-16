@@ -30,6 +30,7 @@ public class GameScreen extends Screen {
         bricks = map.getBricks();
     }
 
+
     @Override
     public void update(double deltaTime) {
         paddle.update(deltaTime);
