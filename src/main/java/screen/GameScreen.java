@@ -14,6 +14,7 @@ public class GameScreen extends Screen {
     private Paddle paddle;
     private Ball ball;
     private boolean ballFollowingPaddle = true;
+    private int star = 3;
     private int level;
     private ArrayList<Brick> bricks;
 
