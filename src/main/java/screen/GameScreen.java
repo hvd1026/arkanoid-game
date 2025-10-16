@@ -17,6 +17,7 @@ public class GameScreen extends Screen {
     private int star = 3;
     private int level;
     private ArrayList<Brick> bricks;
+    private ArrayList<Brick> brickLine;
 
     public GameScreen(int level) {
         paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2,
@@ -28,6 +29,13 @@ public class GameScreen extends Screen {
         this.level = level;
         Map map = new Map(level);
         bricks = map.getBricks();
+
+        // draw brick line at top
+        brickLine = new ArrayList<Brick>();
+        float brickPosY = Constant.GAME_Y_OFFSET - Constant.BRICK_HEIGHT;
+        for (int i = 0; i < Constant.BRICK_COLUMNS; i++) {
+            brickLine.add(new StrongBrick(i * Constant.BRICK_WIDTH, brickPosY, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT));
+        }
     }
 
 
@@ -41,7 +49,7 @@ public class GameScreen extends Screen {
 
         followPaddle(); // chua bat dau thi bong di theo paddle
         for (Brick b : bricks) {
-            if ( b instanceof NormalBrick) {
+            if (b instanceof NormalBrick) {
                 count++;
             }
             ball.checkCollision(b);
@@ -77,7 +85,9 @@ public class GameScreen extends Screen {
             b.render(g);
         }
         g.setColor(Color.RED);
-        g.drawLine(0, Constant.GAME_Y_OFFSET, Constant.SCREEN_WIDTH, Constant.GAME_Y_OFFSET);
+        for (Brick br : brickLine) {
+            br.render(g);
+        }
         g.dispose();
     }
 
