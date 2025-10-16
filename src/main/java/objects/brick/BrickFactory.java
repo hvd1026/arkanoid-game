@@ -7,7 +7,7 @@ public class BrickFactory {
         if (type == Constant.STRONG_BRICK) {
             return new StrongBrick(x, y, width, height);
         } else if (type >= 1 && type <= 6) {
-            return new NormalBrick(x, y, width, height); // chua add style vao
+            return new NormalBrick(x, y, width, height, type); // type chinh la style
         } else {
             throw new IllegalArgumentException("Invalid brick type: " + type);
         }
