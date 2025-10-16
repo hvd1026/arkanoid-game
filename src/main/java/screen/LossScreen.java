@@ -3,11 +3,15 @@ package screen;
 import java.awt.*;
 
 public class LossScreen extends Screen {
+    private int level;
 
+    public LossScreen(int level) {
+        this.level = level;
+    }
 
     @Override
     public void update(double deltaTime) {
-        System.out.println("Update Game Over Screen");
+        System.out.println("Updating Game Over Screen for level " + level);
     }
 
     @Override
