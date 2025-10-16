@@ -2,7 +2,7 @@ package screen;
 
 import java.awt.*;
 
-public class GameOverScreen extends Screen {
+public class LossScreen extends Screen {
 
 
     @Override
