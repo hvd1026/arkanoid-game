@@ -42,6 +42,18 @@ public class GameScreen extends Screen {
         }
         // remove brick
         bricks.removeIf(b -> b.isDestroyed());
+
+        // check star.
+        if (ball.getY() > Constant.SCREEN_HEIGHT) {
+            star--;
+            if (star > 0) {
+                // reset
+                ballFollowingPaddle = true;
+            } else {
+                // game over
+                ScreenManager.getInstance().switchScreen(new LossScreen());
+            }
+        }
     }
 
 
