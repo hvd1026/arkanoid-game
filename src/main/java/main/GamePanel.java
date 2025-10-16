@@ -6,6 +6,7 @@ import screen.ScreenManager;
 import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
+import util.MouseHandle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // to improve rendering performance
         this.setFocusable(true); // to receive keyboard inputs
         this.addKeyListener(util.KeyHandle.getInstance()); // add key listener
+        // mouse event
+        this.addMouseListener(util.MouseHandle.getInstance());
+        this.addMouseMotionListener(util.MouseHandle.getInstance());
+        MouseHandle.getInstance().setComponent(this); // add JPanel as component to set cursor
+
 
         gameThread = new Thread(this); // create a new thread for the game loop
 
