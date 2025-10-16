@@ -10,7 +10,7 @@ public class App {
         window.setTitle(Constant.TITLE);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        
+
         // add GamePanel to the window
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
