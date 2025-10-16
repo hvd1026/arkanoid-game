@@ -15,19 +15,18 @@ public class GameScreen extends Screen {
     private Ball ball;
     private boolean ballFollowingPaddle = true;
     private int star = 3;
-
+    private int level;
     private ArrayList<Brick> bricks;
 
-    public GameScreen() {
+    public GameScreen(int level) {
         paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2,
                 Constant.SCREEN_HEIGHT - Constant.PADDLE_Y_OFFSET - Constant.PADDLE_HEIGHT,
                 Constant.PADDLE_WIDTH, Constant.PADDLE_HEIGHT);
         float ballX = paddle.getX() + paddle.getWidth() / 2 - Constant.BALL_RADIUS;
         float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
         ball = new Ball(ballX, ballY, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS, 0, 0);
-
-        Map map = new Map();
-        map.load();
+        this.level = level;
+        Map map = new Map(level);
         bricks = map.getBricks();
     }
 
