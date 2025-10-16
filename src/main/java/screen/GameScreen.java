@@ -36,10 +36,19 @@ public class GameScreen extends Screen {
         ball.update(deltaTime);
         ball.checkCollision(paddle);
 
+        int count = 0;
+
         followPaddle(); // chua bat dau thi bong di theo paddle
         for (Brick b : bricks) {
+            if ( b instanceof NormalBrick) {
+                count++;
+            }
             ball.checkCollision(b);
             b.update(deltaTime);
+        }
+
+        if (count == 0) {
+            ScreenManager.getInstance().switchScreen(new WinScreen(level, star));
         }
         // remove brick
         bricks.removeIf(b -> b.isDestroyed());
@@ -52,7 +61,7 @@ public class GameScreen extends Screen {
                 ballFollowingPaddle = true;
             } else {
                 // game over
-                ScreenManager.getInstance().switchScreen(new LossScreen());
+                ScreenManager.getInstance().switchScreen(new LossScreen(level));
             }
         }
     }
