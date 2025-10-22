@@ -42,6 +42,18 @@ public class AssetManager {
             case Constant.STRONG_BRICK_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 371, 0, 430, 30, null);
                 break;
+            case Constant.ZERO_STAR_LEVEL_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 296, 120, 395, 203, null);
+                break;
+            case Constant.ONE_STAR_LEVEL_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 297, 206, 396, 290, null);
+                break;
+            case Constant.TWO_STARS_LEVEL_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 299, 292, 398, 375, null);
+                break;
+            case Constant.THREE_STARS_LEVEL_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 300, 379, 399, 462, null);
+                break;
             default:
                 System.out.println("Asset not found: " + id);
                 break;
