@@ -40,3 +40,4 @@ build/
 ### Other ###
 .idea/
 .mvn/
+*.data
