@@ -36,4 +36,8 @@ public class Constant {
     public static final int NORMAL_BRICK_IMG_5 = 5;
     public static final int NORMAL_BRICK_IMG_6 = 6;
     public static final int BALL_IMG = 7;
+    public static final int ZERO_STAR_LEVEL_IMG = 8;
+    public static final int ONE_STAR_LEVEL_IMG = 9;
+    public static final int TWO_STARS_LEVEL_IMG = 10;
+    public static final int THREE_STARS_LEVEL_IMG = 11;
 }
