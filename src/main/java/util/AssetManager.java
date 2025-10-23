@@ -8,10 +8,16 @@ import java.io.IOException;
 public class AssetManager {
     private BufferedImage spriteSheet;
     private static AssetManager instance = null;
+    public Font deffaultFont = new Font("Arial", Font.BOLD, 25);
 
     private AssetManager() {
         loadSpriteSheet();
     }
+
+    public Font getDefaultFont() {
+        return deffaultFont;
+    }
+
 
     public void draw(Graphics2D g, int id, int x, int y, int width, int height) {
         switch (id) {
