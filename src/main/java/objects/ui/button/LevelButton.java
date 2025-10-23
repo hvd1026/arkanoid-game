@@ -19,10 +19,6 @@ public class LevelButton extends Button {
 
     @Override
     public void update(double deltaTime) {
-        if (MouseHandle.getInstance().isClickOn(this)) {
-            System.out.println("Selected level " + levelNumber);
-            ScreenManager.getInstance().switchScreen(new GameScreen(levelNumber));
-        }
     }
 
     @Override

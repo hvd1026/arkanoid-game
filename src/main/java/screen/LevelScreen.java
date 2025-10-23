@@ -68,13 +68,34 @@ public class LevelScreen extends Screen {
 
     @Override
     public void update(double deltaTime) {
+        // button action handle
+        boolean isHoverSomeButton = false;
         for (int i = 1; i <= TOTAL_LEVELS; i++) {
-            levelButtons[i].update(deltaTime);
+            // hover check
+            if (MouseHandle.getInstance().isHoverOn(levelButtons[i])) {
+                isHoverSomeButton = true;
+            }
+
+            // click
+            if (MouseHandle.getInstance().isClickOn(levelButtons[i])) {
+                System.out.println("Level " + i + " Button Clicked!");
+                MouseHandle.getInstance().changeToDefaultCursor();
+                ScreenManager.getInstance().switchScreen(new GameScreen(i));
+                return;
+            }
+        }
+
+        // change cursor
+        if (isHoverSomeButton) {
+            MouseHandle.getInstance().changeToHandCursor();
+        } else {
+            MouseHandle.getInstance().changeToDefaultCursor();
         }
     }
 
     @Override
     public void render(java.awt.Graphics2D g) {
+        AssetManager.getInstance().drawBackground(g);
         g.setColor(Color.WHITE);
         g.setFont(font);
         FontMetrics fmt = g.getFontMetrics(font);
