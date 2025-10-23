@@ -7,11 +7,13 @@ import java.io.IOException;
 
 public class AssetManager {
     private BufferedImage spriteSheet;
+    private BufferedImage backgroundImage;
     private static AssetManager instance = null;
     public Font deffaultFont = new Font("Arial", Font.BOLD, 25);
 
     private AssetManager() {
         loadSpriteSheet();
+        loadBackgroundImage();
     }
 
     public Font getDefaultFont() {
@@ -66,11 +68,24 @@ public class AssetManager {
         }
     }
 
+    public void drawBackground(Graphics2D g) {
+        g.drawImage(backgroundImage, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 0, 800, 600, null);
+    }
+
     private void loadSpriteSheet() {
         try {
             spriteSheet = ImageIO.read(getClass().getResourceAsStream("/sprites.png"));
         } catch (IOException e) {
             System.out.println("Can't load img");
+            e.printStackTrace();
+        }
+    }
+
+    private void loadBackgroundImage() {
+        try {
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/background.png"));
+        } catch (IOException e) {
+            System.out.println("Can't load background img");
             e.printStackTrace();
         }
     }
