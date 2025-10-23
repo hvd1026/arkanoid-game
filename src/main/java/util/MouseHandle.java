@@ -11,10 +11,28 @@ public class MouseHandle implements MouseListener, MouseMotionListener {
     private Point mousePos;
     private static MouseHandle instance;
     private boolean mousePressed;
+    private Component component;
 
     private MouseHandle() {
         mousePos = new Point(0, 0);
         mousePressed = false;
+    }
+
+
+    public void setComponent(Component component) {
+        this.component = component;
+    }
+
+    public void changeToHandCursor() {
+        if (component != null) {
+            component.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+    }
+
+    public void changeToDefaultCursor() {
+        if (component != null) {
+            component.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        }
     }
 
     public static MouseHandle getInstance() {
@@ -26,8 +44,7 @@ public class MouseHandle implements MouseListener, MouseMotionListener {
     }
 
     public boolean isHoverOn(Button btn) {
-        boolean hover = btn.getBounds().contains(mousePos);
-        return hover;
+        return btn.getBounds().contains(mousePos);
     }
 
     public boolean isClickOn(Button btn) {

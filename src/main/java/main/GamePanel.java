@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
         // mouse event
         this.addMouseListener(util.MouseHandle.getInstance());
         this.addMouseMotionListener(util.MouseHandle.getInstance());
-
+        MouseHandle.getInstance().setComponent(this); // set component for mouse handling
         gameThread = new Thread(this); // create a new thread for the game loop
 
         ScreenManager.getInstance().switchScreen(new MenuScreen()); // start with menu screen
