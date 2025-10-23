@@ -14,10 +14,7 @@ public class StartButton extends Button {
 
     @Override
     public void update(double deltaTime) {
-        if (MouseHandle.getInstance().isClickOn(this)) {
-            System.out.println("Start Button Clicked!");
-            ScreenManager.getInstance().switchScreen(new LevelScreen());
-        }
+        
     }
 
     @Override

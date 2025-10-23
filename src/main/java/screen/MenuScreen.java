@@ -3,6 +3,7 @@ package screen;
 import objects.ui.button.Button;
 import objects.ui.button.StartButton;
 import util.AssetManager;
+import util.MouseHandle;
 
 import java.awt.*;
 
@@ -24,7 +25,19 @@ public class MenuScreen extends Screen {
 
     @Override
     public void update(double deltaTime) {
-        startButton.update(deltaTime);
+
+        if (MouseHandle.getInstance().isClickOn(startButton)) {
+            System.out.println("Start Button Clicked!");
+            MouseHandle.getInstance().changeToDefaultCursor();
+            ScreenManager.getInstance().switchScreen(new LevelScreen());
+            return;
+        }
+
+        if (MouseHandle.getInstance().isHoverOn(startButton)) {
+            MouseHandle.getInstance().changeToHandCursor();
+        } else {
+            MouseHandle.getInstance().changeToDefaultCursor();
+        }
     }
 
     @Override
