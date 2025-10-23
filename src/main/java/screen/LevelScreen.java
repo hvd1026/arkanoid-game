@@ -3,7 +3,6 @@ package screen;
 import objects.ui.button.LevelButton;
 import util.AssetManager;
 import util.LevelData;
-import util.MouseHandle;
 
 import java.awt.*;
 import java.io.File;
@@ -75,6 +74,7 @@ public class LevelScreen extends Screen {
 
     @Override
     public void render(java.awt.Graphics2D g) {
+        AssetManager.getInstance().drawBackground(g);
         g.setColor(Color.WHITE);
         g.setFont(font);
         FontMetrics fmt = g.getFontMetrics(font);

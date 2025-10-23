@@ -3,6 +3,7 @@ package screen;
 import objects.brick.*;
 import objects.movable.Ball;
 import objects.movable.Paddle;
+import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
 import util.Map;
@@ -78,7 +79,7 @@ public class GameScreen extends Screen {
 
     @Override
     public void render(Graphics2D g) {
-
+        AssetManager.getInstance().drawBackground(g);
         paddle.render(g);
         ball.render(g);
         for (Brick b : bricks) {
