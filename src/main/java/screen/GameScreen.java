@@ -79,18 +79,31 @@ public class GameScreen extends Screen {
 
     @Override
     public void render(Graphics2D g) {
-        AssetManager.getInstance().drawBackground(g);
-        paddle.render(g);
-        ball.render(g);
-        for (Brick b : bricks) {
+
+        paddle.render(g); // draw paddle
+        ball.render(g); // draw ball
+        for (Brick b : bricks) { // draw bricks
             b.render(g);
         }
         g.setColor(Color.RED);
         for (Brick br : brickLine) {
-            br.render(g);
+            br.render(g); // draw brick line at top
         }
+
+        // draw stars
+
+        for (int i = 0; i < star; i++) {
+            AssetManager.getInstance().draw(g, Constant.STAR_IMG,
+                                        700 + i * (Constant.STAR_SIZE + 5),
+                                        10,
+                                        Constant.STAR_SIZE,
+                                        Constant.STAR_SIZE);
+        }
+
         g.dispose();
+
     }
+
 
     void followPaddle() {
         // follow
