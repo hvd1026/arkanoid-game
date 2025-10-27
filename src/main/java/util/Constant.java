@@ -40,4 +40,6 @@ public class Constant {
     public static final int ONE_STAR_LEVEL_IMG = 9;
     public static final int TWO_STARS_LEVEL_IMG = 10;
     public static final int THREE_STARS_LEVEL_IMG = 11;
+    public static final int STAR_IMG = 12;
+    public static final int STAR_SIZE = 20;
 }
