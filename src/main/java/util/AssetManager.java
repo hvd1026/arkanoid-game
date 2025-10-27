@@ -54,6 +54,9 @@ public class AssetManager {
             case Constant.THREE_STARS_LEVEL_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 300, 379, 399, 462, null);
                 break;
+            case Constant.STAR_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 150, 32, 179, 59, null);
+                break;
             default:
                 System.out.println("Asset not found: " + id);
                 break;
