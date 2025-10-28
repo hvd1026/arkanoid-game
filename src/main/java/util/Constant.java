@@ -54,4 +54,5 @@ public class Constant {
     public static final int PADDING_X_BETWEEN = 60;
     public static final int PADDING_Y_BETWEEN = 40;
     public static final int LEVEL_TITLE_Y_OFFSET = 100;
+
 }
