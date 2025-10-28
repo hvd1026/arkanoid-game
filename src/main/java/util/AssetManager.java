@@ -65,6 +65,14 @@ public class AssetManager {
             case Constant.STAR_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 150, 32, 179, 59, null);
                 break;
+            case Constant.POWERUP_EXPAND_IMG:
+                g.setColor(Color.YELLOW);
+                g.fillOval(x, y, width, height);
+                break;
+            case Constant.POWERUP_FAST_IMG:
+                g.setColor(Color.CYAN);
+                g.fillRect(x, y, width, height);
+                break;
             default:
                 System.out.println("Asset not found: " + id);
                 break;
