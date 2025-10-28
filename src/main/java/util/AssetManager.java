@@ -49,6 +49,14 @@ public class AssetManager {
         g.drawImage(backgroundImage, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, null);
     }
 
+    public void drawLossScreen(Graphics2D g) {
+        // draw background at (0,0) with size of screen, crop image to fit screen size
+        g.drawImage(spriteSheet, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 120, 290, 310, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 - 30, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 30, 130, 70, 250, 115, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 + 30, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 90, 0, 510, 255, 560, null);
+
+    }
+
     private void loadSpriteSheet() {
         try {
             spriteSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/sprites.png")));
@@ -129,6 +137,7 @@ public class AssetManager {
                 g.setColor(Color.CYAN);
                 g.fillRect(x, y, width, height);
                 break;
+//
             default:
                 System.err.println("Asset not found: " + id);
                 break;
