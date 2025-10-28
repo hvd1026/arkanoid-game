@@ -4,24 +4,80 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
+/**
+ * AssetManager is a singleton class responsible for loading and rendering game assets.
+ * - Load sprite sheets images and provides methods to draw them on the screen.
+ * - Load background image and provides method to draw it on the screen.
+ * - Defines a default font for the game.
+ */
 public class AssetManager {
     private BufferedImage spriteSheet;
     private BufferedImage backgroundImage;
     private static AssetManager instance = null;
-    public Font deffaultFont = new Font("Arial", Font.BOLD, 25);
+    public Font deffaultFont;
 
     private AssetManager() {
+        deffaultFont = new Font("Arial", Font.BOLD, 25);
         loadSpriteSheet();
         loadBackgroundImage();
+    }
+
+    public static AssetManager getInstance() {
+        if (instance == null) {
+            instance = new AssetManager();
+        }
+        return instance;
     }
 
     public Font getDefaultFont() {
         return deffaultFont;
     }
 
+    private void loadBackgroundImage() {
+        try {
+            backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/background.png")));
+        } catch (IOException e) {
+            System.err.println("Can't load background image");
+            e.printStackTrace();
+        }
+    }
 
+    public void drawBackground(Graphics2D g) {
+        // draw background at (0,0) with size of screen, crop image to fit screen size
+        g.drawImage(backgroundImage, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, null);
+    }
+
+    private void loadSpriteSheet() {
+        try {
+            spriteSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/sprites.png")));
+        } catch (IOException e) {
+            System.err.println("Can't load sprite sheet");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Draws image from sprite sheet to screen based on id.
+     *
+     * @param g      Graphics2D object
+     * @param id     id of sprite to draw
+     * @param x      position x on screen
+     * @param y      position y on screen
+     * @param width  width on screen
+     * @param height height on screen
+     */
     public void draw(Graphics2D g, int id, int x, int y, int width, int height) {
+        /* Structure for adding new assets:
+         * case ID:
+         *    g.drawImage(spriteSheet, x, y, x + width, y + height, srcX1, srcY1, srcX2, srcY2, null);
+         *    break;
+         * Where:
+         *  ID: a constant defined in util.Constant.java
+         *  srcX1, srcY1: top-left corner of the asset in the sprite sheet
+         *  srcX2, srcY2: bottom-right corner of the asset in the
+         */
         switch (id) {
             case Constant.PADDLE_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 35, 120, 55, null);
@@ -74,37 +130,8 @@ public class AssetManager {
                 g.fillRect(x, y, width, height);
                 break;
             default:
-                System.out.println("Asset not found: " + id);
+                System.err.println("Asset not found: " + id);
                 break;
         }
-    }
-
-    public void drawBackground(Graphics2D g) {
-        g.drawImage(backgroundImage, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 0, 800, 600, null);
-    }
-
-    private void loadSpriteSheet() {
-        try {
-            spriteSheet = ImageIO.read(getClass().getResourceAsStream("/sprites.png"));
-        } catch (IOException e) {
-            System.out.println("Can't load img");
-            e.printStackTrace();
-        }
-    }
-
-    private void loadBackgroundImage() {
-        try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/background.png"));
-        } catch (IOException e) {
-            System.out.println("Can't load background img");
-            e.printStackTrace();
-        }
-    }
-
-    public static AssetManager getInstance() {
-        if (instance == null) {
-            instance = new AssetManager();
-        }
-        return instance;
     }
 }

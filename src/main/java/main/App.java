@@ -4,6 +4,9 @@ import util.Constant;
 
 import javax.swing.*;
 
+/**
+ * Main application class to set up the game window and start the game loop.
+ */
 public class App {
     public static void main(String[] args) {
         JFrame window = new JFrame();
