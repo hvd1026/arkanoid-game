@@ -55,4 +55,14 @@ public class Constant {
     public static final int PADDING_Y_BETWEEN = 40;
     public static final int LEVEL_TITLE_Y_OFFSET = 100;
 
+    // PowerUp config
+    public static final float POWERUP_DROP_RATE = 0.5f; // 50% xác suất rơi
+    public static final float POWERUP_FALL_SPEED = 120f; // px/s
+    public static final int POWERUP_DURATION_MS_EXPAND = 8000;
+    public static final int POWERUP_DURATION_MS_FASTBALL = 6000;
+
+    // PowerUp asset ids (placeholder)
+    public static final int POWERUP_EXPAND_IMG = 1001;
+    public static final int POWERUP_FAST_IMG = 1002;
+
 }

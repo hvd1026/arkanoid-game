@@ -3,6 +3,10 @@ package screen;
 import objects.brick.*;
 import objects.movable.Ball;
 import objects.movable.Paddle;
+import objects.GameObject;
+import objects.powerup.ExpandPaddlePowerUp;
+import objects.powerup.FastBallPowerUp;
+import objects.powerup.PowerUp;
 import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
@@ -10,6 +14,8 @@ import util.Map;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 public class GameScreen extends Screen {
     private Paddle paddle;
@@ -19,6 +25,9 @@ public class GameScreen extends Screen {
     private int level;
     private ArrayList<Brick> bricks;
     private ArrayList<Brick> brickLine;
+    private ArrayList<PowerUp> fallingPowerUps = new ArrayList<>();
+    private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
+    private final Random rng = new Random();
 
     public GameScreen(int level) {
         paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2,
@@ -60,8 +69,58 @@ public class GameScreen extends Screen {
         if (count == 0) {
             ScreenManager.getInstance().switchScreen(new WinScreen(level, star));
         }
-        // remove brick
-        bricks.removeIf(b -> b.isDestroyed());
+        // spawn powerups và remove bricks bị phá
+        Iterator<Brick> it = bricks.iterator();
+        while (it.hasNext()) {
+            Brick b = it.next();
+            if (b.isDestroyed()) {
+                maybeSpawnPowerUp(b);
+                it.remove();
+            }
+        }
+
+        // update powerups đang rơi
+        Iterator<PowerUp> pit = fallingPowerUps.iterator();
+        while (pit.hasNext()) {
+            PowerUp p = pit.next();
+            p.update(deltaTime);
+            // chạm đáy màn hình thì biến mất
+            if (p.getY() > Constant.SCREEN_HEIGHT) {
+                pit.remove();
+                continue;
+            }
+            // va chạm với paddle
+            if (isIntersect(p, paddle)) {
+                // nếu đã có powerup cùng loại đang active, reset thời gian và bỏ item mới
+                boolean refreshed = false;
+                for (PowerUp ap : activePowerUps) {
+                    if (ap.getType() == p.getType()) {
+                        ap.setActivatedTime(System.currentTimeMillis());
+                        refreshed = true;
+                        break;
+                    }
+                }
+                if (!refreshed) {
+                    // kích hoạt tùy loại
+                    switch (p.getType()) {
+                        case EXPAND_PADDLE -> p.activate(paddle);
+                        case FAST_BALL -> p.activate(ball);
+                    }
+                    activePowerUps.add(p);
+                }
+                pit.remove();
+            }
+        }
+
+        // quản lý hết hạn powerups đang hiệu lực
+        Iterator<PowerUp> ait = activePowerUps.iterator();
+        while (ait.hasNext()) {
+            PowerUp p = ait.next();
+            if (p.isExpired()) {
+                p.removeEffect(p.getAppliedTo());
+                ait.remove();
+            }
+        }
 
         // check star.
         if (ball.getY() > Constant.SCREEN_HEIGHT) {
@@ -87,6 +146,11 @@ public class GameScreen extends Screen {
         }
         for (Brick br : brickLine) {
             br.render(g); // draw brick line at top
+        }
+
+        // draw powerups đang rơi
+        for (PowerUp p : fallingPowerUps) {
+            p.render(g);
         }
 
         // draw stars
@@ -119,6 +183,26 @@ public class GameScreen extends Screen {
             // di len tren ben phai goc 60 do
             ball.setDx(Constant.BALL_SPEED * (float) Math.cos(Math.toRadians(60)));
             ball.setDy(-Constant.BALL_SPEED * (float) Math.sin(Math.toRadians(60)));
+        }
+    }
+
+    private boolean isIntersect(GameObject a, GameObject b) {
+        return a.getX() < b.getX() + b.getWidth() &&
+               a.getX() + a.getWidth() > b.getX() &&
+               a.getY() < b.getY() + b.getHeight() &&
+               a.getY() + a.getHeight() > b.getY();
+    }
+
+    private void maybeSpawnPowerUp(Brick b) {
+        if (rng.nextFloat() <= Constant.POWERUP_DROP_RATE) {
+            PowerUp p;
+            // chọn loại đơn giản 50/50
+            if (rng.nextBoolean()) {
+                p = new ExpandPaddlePowerUp(b.getX() + b.getWidth() / 2f - 12, b.getY() + b.getHeight(), 24, 24);
+            } else {
+                p = new FastBallPowerUp(b.getX() + b.getWidth() / 2f - 12, b.getY() + b.getHeight(), 24, 24);
+            }
+            fallingPowerUps.add(p);
         }
     }
 }
