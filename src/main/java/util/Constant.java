@@ -40,6 +40,8 @@ public class Constant {
     public static final int ONE_STAR_LEVEL_IMG = 9;
     public static final int TWO_STARS_LEVEL_IMG = 10;
     public static final int THREE_STARS_LEVEL_IMG = 11;
+    public static final int STAR_IMG = 12;
+    public static final int STAR_SIZE = 20;
 
     // Level screen
     public static final int TOTAL_LEVELS = 12;
@@ -52,4 +54,5 @@ public class Constant {
     public static final int PADDING_X_BETWEEN = 60;
     public static final int PADDING_Y_BETWEEN = 40;
     public static final int LEVEL_TITLE_Y_OFFSET = 100;
+
 }
