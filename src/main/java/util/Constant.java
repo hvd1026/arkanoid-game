@@ -42,4 +42,17 @@ public class Constant {
     public static final int THREE_STARS_LEVEL_IMG = 11;
     public static final int STAR_IMG = 12;
     public static final int STAR_SIZE = 20;
+
+    // Level screen
+    public static final int TOTAL_LEVELS = 12;
+    public static final int LEVEL_COLS = 4;
+    public static final int LEVEL_ROWS = 3;
+    public static final int LEVEL_BUTTON_WIDTH = 100;
+    public static final int LEVEL_BUTTON_HEIGHT = 85;
+    public static final int PADDING_X_LEFT = 110;
+    public static final int PADDING_Y_TOP = 180;
+    public static final int PADDING_X_BETWEEN = 60;
+    public static final int PADDING_Y_BETWEEN = 40;
+    public static final int LEVEL_TITLE_Y_OFFSET = 100;
+
 }
