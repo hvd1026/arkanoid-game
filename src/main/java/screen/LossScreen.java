@@ -14,6 +14,7 @@ import static util.Constant.SCREEN_WIDTH;
 public class LossScreen extends Screen {
     private int level;
     private final Button MenuButton;
+    private final Button TryAgainButton;
 
     public LossScreen(int level) {
         this.level = level;
@@ -22,12 +23,19 @@ public class LossScreen extends Screen {
         Graphics2D g2d = img.createGraphics();
         g2d.setFont(AssetManager.getInstance().getDefaultFont());
         FontMetrics fm = g2d.getFontMetrics();
-        // Calculate button size and position of the start button
-        int MenuButtonWidth = fm.stringWidth("               ");
+        // Calculate button size and position of the menu & try_again button
+        int MenuButtonWidth = fm.stringWidth("                 ");
         int MenuButtonHeight = fm.getHeight() + 30;
-        int startButtonX = (SCREEN_WIDTH - MenuButtonWidth) / 2; // Centered horizontally
-        int startButtonY = (SCREEN_HEIGHT - MenuButtonHeight) / 2; // Centered vertically
-        MenuButton = new StartButton(startButtonX, startButtonY, MenuButtonWidth, MenuButtonHeight);
+        int MenuButtonX = (SCREEN_WIDTH - MenuButtonWidth) / 2; // Centered horizontally
+        int MenuButtonY = (SCREEN_HEIGHT - MenuButtonHeight) / 2 ; // Centered vertically
+        MenuButton = new StartButton(MenuButtonX, MenuButtonY, MenuButtonWidth, MenuButtonHeight);
+
+        //TRY AGAIN
+        int TryAgainButtonWidth = fm.stringWidth("               ");
+        int TryAgainButtonHeight = fm.getHeight() + 30;
+        int TryAgainButtonX = (SCREEN_WIDTH - TryAgainButtonWidth) / 2; // Centered horizontally
+        int TryAgainButtonY = (SCREEN_HEIGHT - TryAgainButtonHeight) / 2 + 70; // Centered vertically
+        TryAgainButton = new StartButton(TryAgainButtonX, TryAgainButtonY, TryAgainButtonWidth, TryAgainButtonHeight);
     }
 
     @Override
@@ -37,13 +45,20 @@ public class LossScreen extends Screen {
             ScreenManager.getInstance().switchScreen(new LevelScreen());
             return;
         }
-        // Change cursor if hovering over start button
-        if (MouseHandle.getInstance().isHoverOn(MenuButton)) {
+        // Change cursor if hovering over Menu button
+        if (MouseHandle.getInstance().isHoverOn(MenuButton) || MouseHandle.getInstance().isHoverOn(TryAgainButton)) {
             MouseHandle.getInstance().changeToHandCursor();
         } else {
             MouseHandle.getInstance().changeToDefaultCursor();
         }
         System.out.println("Updating Game Over Screen for level " + level);
+
+        //TRY AGAIN
+        if (MouseHandle.getInstance().isClickOn(TryAgainButton)) {
+            MouseHandle.getInstance().changeToDefaultCursor();
+            ScreenManager.getInstance().switchScreen( new GameScreen(level));
+            return;
+        }
     }
 
     @Override
