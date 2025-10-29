@@ -1,7 +1,9 @@
 package main;
 
+import screen.LossScreen;
 import screen.MenuScreen;
 import screen.ScreenManager;
+import screen.WinScreen;
 import util.AssetManager;
 import util.Constant;
 import util.MouseHandle;
