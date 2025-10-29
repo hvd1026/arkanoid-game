@@ -44,6 +44,10 @@ public class Constant {
     public static final int THREE_STARS_LEVEL_IMG = 11;
     public static final int STAR_IMG = 12;
     public static final int STAR_SIZE = 20;
+    public static final int LOSS_IMG = 13;
+    public static final int MENU_END_GAME_IMG = 14;
+    public static final int LEVELS_IMG = 15;
+    public static final int TRY_AGAIN_IMG = 16;
 
     // Level screen
     public static final int TOTAL_LEVELS = 12;
