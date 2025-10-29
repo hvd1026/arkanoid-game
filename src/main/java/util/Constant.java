@@ -45,7 +45,8 @@ public class Constant {
     public static final int TRY_AGAIN_BUTTON_IMG = 14;
     public static final int SHOW_LEVELS_BUTTON_IMG = 15;
     public static final int MENU_BUTTON_IMG = 16;
-
+    public static final int WIN_DIALOG_IMG = 17;
+    public static final int NEXT_LEVEL_BUTTON_IMG = 18;
     // stars
     public static final int STAR_SIZE = 20;
 
@@ -79,6 +80,8 @@ public class Constant {
     // Buttons
     public static final int TRY_AGAIN_BUTTON_WIDTH = 255;
     public static final int TRY_AGAIN_BUTTON_HEIGHT = 50;
+    public static final int NEXT_LEVEL_BUTTON_WIDTH = 255;
+    public static final int NEXT_LEVEL_BUTTON_HEIGHT = 50;
     public static final int SHOW_LEVELS_BUTTON_WIDTH = 123;
     public static final int SHOW_LEVELS_BUTTON_HEIGHT = 47;
     public static final int MENU_BUTTON_WIDTH = 123;

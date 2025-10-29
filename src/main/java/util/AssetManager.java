@@ -149,6 +149,12 @@ public class AssetManager {
             case Constant.MENU_BUTTON_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 129, 69, 252, 116, null);
                 break;
+            case Constant.WIN_DIALOG_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 314, 296, 505, null);
+                break;
+            case Constant.NEXT_LEVEL_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 262, 512, 517, 560, null);
+                break;
             default:
                 System.err.println("Asset not found: " + id);
                 break;
