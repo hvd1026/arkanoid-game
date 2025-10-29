@@ -3,6 +3,7 @@ package main;
 import screen.LossScreen;
 import screen.MenuScreen;
 import screen.ScreenManager;
+import screen.WinScreen;
 import util.AssetManager;
 import util.Constant;
 import util.MouseHandle;
@@ -36,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
         // load assets
         AssetManager.getInstance();
         // initialize screen manager, start with menu screen
-        ScreenManager.getInstance().switchScreen(new LossScreen(1));
+        ScreenManager.getInstance().switchScreen(new MenuScreen());
     }
 
     public void startGameThread() {
