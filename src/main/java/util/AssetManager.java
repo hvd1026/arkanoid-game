@@ -137,7 +137,18 @@ public class AssetManager {
                 g.setColor(Color.CYAN);
                 g.fillRect(x, y, width, height);
                 break;
-//
+            case Constant.LOSS_DIALOG_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 120, 290, 310, null);
+                break;
+            case Constant.TRY_AGAIN_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 0, 512, 255, 560, null);
+                break;
+            case Constant.SHOW_LEVELS_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 1, 69, 124, 116, null);
+                break;
+            case Constant.MENU_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 129, 69, 252, 116, null);
+                break;
             default:
                 System.err.println("Asset not found: " + id);
                 break;
