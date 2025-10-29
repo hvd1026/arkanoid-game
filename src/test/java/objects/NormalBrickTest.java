@@ -22,20 +22,20 @@ class NormalBrickTest {
     void testIsDestroyed() {
         brick = new NormalBrick(0, 0, 50, 20);
         assertFalse(brick.isDestroyed());
-        brick.takeHit();
+        brick.takeHit(3);
         assertFalse(brick.isDestroyed());
-        brick.takeHit();
+        brick.takeHit(3);
         assertTrue(brick.isDestroyed());
     }
 
     @Test
     @DisplayName("Test takeHit method")
-    void testTakeHit() {
+    void testTakeHit() {        
         brick = new NormalBrick(0, 0, 50, 20);
         assertEquals(2, brick.getHitPoints());
-        brick.takeHit();
+        brick.takeHit(3);
         assertEquals(1, brick.getHitPoints());
-        brick.takeHit();
+        brick.takeHit(3);
         assertEquals(0, brick.getHitPoints());
     }
 }

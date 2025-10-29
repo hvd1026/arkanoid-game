@@ -1,9 +1,6 @@
 package objects.brick;
 
 import objects.GameObject;
-import util.Constant;
-
-import java.util.ArrayList;
 
 public abstract class Brick extends GameObject {
     private int hitPoints;// so lan cham de gach bi pha huy.
@@ -21,8 +18,8 @@ public abstract class Brick extends GameObject {
     }
 
     // do ben cua gach sau khi cham bong.
-    public void takeHit() {
-        setHitPoints(getHitPoints() - 1);
+    public void takeHit(int damage) {
+        setHitPoints(getHitPoints() - Math.max(1, damage));
     }
 
     // ham kiem tra gach bi pha.

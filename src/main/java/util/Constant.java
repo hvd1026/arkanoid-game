@@ -6,6 +6,7 @@ public class Constant {
     public static final int FPS = 60;
     public static final String TITLE = "Arkanoid Game";
     public static final int GAME_Y_OFFSET = 60; // padding top
+    public static final double BALL_START_ANGLE_DEG = 60;
 
     // Paddle
     public static final int PADDLE_WIDTH = 80;
@@ -17,6 +18,7 @@ public class Constant {
     public static final int BALL_RADIUS = 10;
     public static final float BALL_SPEED = 300;
     public static final float BALL_MAX_ANGLE = 60f; // goc pxa lon nhat
+    public static final float MULTI_BALL_SPREAD_DEG = 12f; // goc lech nho cho MultiBall
 
     // Brick.
     public static final int NORMAL_BRICK = 1;
@@ -60,9 +62,12 @@ public class Constant {
     public static final float POWERUP_FALL_SPEED = 120f; // px/s
     public static final int POWERUP_DURATION_MS_EXPAND = 8000;
     public static final int POWERUP_DURATION_MS_FASTBALL = 6000;
+    public static final int POWERUP_DURATION_MS_DOUBLE_DAMAGE = 8000;
 
     // PowerUp asset ids (placeholder)
     public static final int POWERUP_EXPAND_IMG = 1001;
     public static final int POWERUP_FAST_IMG = 1002;
+    public static final int POWERUP_MULTIBALL_IMG = 1003;
+    public static final int POWERUP_DOUBLE_DAMAGE_IMG = 1004;
 
 }
