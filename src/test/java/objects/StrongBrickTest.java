@@ -23,9 +23,9 @@ class StrongBrickTest {
     void testIsDestroyed() {
         brick = new StrongBrick(0, 0, 50, 20);
         assertFalse(brick.isDestroyed());
-        brick.takeHit();
+        brick.takeHit(2);
         assertFalse(brick.isDestroyed());
-        brick.takeHit();
+        brick.takeHit(3);
         assertTrue(brick.isDestroyed());
     }
 
@@ -34,9 +34,9 @@ class StrongBrickTest {
     void testTakeHit() {
         brick = new StrongBrick(0, 0, 50, 20);
         assertEquals(2, brick.getHitPoints());
-        brick.takeHit();
+        brick.takeHit(3);
         assertEquals(1, brick.getHitPoints());
-        brick.takeHit();
+        brick.takeHit(3);
         assertEquals(0, brick.getHitPoints());
     }
 }
