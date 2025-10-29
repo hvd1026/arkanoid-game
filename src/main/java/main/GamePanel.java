@@ -1,5 +1,6 @@
 package main;
 
+import screen.LossScreen;
 import screen.MenuScreen;
 import screen.ScreenManager;
 import util.AssetManager;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         // load assets
         AssetManager.getInstance();
         // initialize screen manager, start with menu screen
-        ScreenManager.getInstance().switchScreen(new MenuScreen());
+        ScreenManager.getInstance().switchScreen(new LossScreen(1));
     }
 
     public void startGameThread() {

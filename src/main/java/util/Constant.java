@@ -43,11 +43,13 @@ public class Constant {
     public static final int TWO_STARS_LEVEL_IMG = 10;
     public static final int THREE_STARS_LEVEL_IMG = 11;
     public static final int STAR_IMG = 12;
+    public static final int LOSS_DIALOG_IMG = 13;
+    public static final int TRY_AGAIN_BUTTON_IMG = 14;
+    public static final int SHOW_LEVELS_BUTTON_IMG = 15;
+    public static final int MENU_BUTTON_IMG = 16;
+
+    // stars
     public static final int STAR_SIZE = 20;
-    public static final int LOSS_IMG = 13;
-    public static final int MENU_END_GAME_IMG = 14;
-    public static final int LEVELS_IMG = 15;
-    public static final int TRY_AGAIN_IMG = 16;
 
     // Level screen
     public static final int TOTAL_LEVELS = 12;
@@ -73,5 +75,18 @@ public class Constant {
     public static final int POWERUP_FAST_IMG = 1002;
     public static final int POWERUP_MULTIBALL_IMG = 1003;
     public static final int POWERUP_DOUBLE_DAMAGE_IMG = 1004;
+
+    // Dialog
+    public static final int PADDING_DIALOG_BOTTOM = 100;
+    public static final int DIALOG_WIDTH = 290;
+    public static final int DIALOG_HEIGHT = 190;
+
+    // Buttons
+    public static final int TRY_AGAIN_BUTTON_WIDTH = 255;
+    public static final int TRY_AGAIN_BUTTON_HEIGHT = 50;
+    public static final int SHOW_LEVELS_BUTTON_WIDTH = 123;
+    public static final int SHOW_LEVELS_BUTTON_HEIGHT = 47;
+    public static final int MENU_BUTTON_WIDTH = 123;
+    public static final int MENU_BUTTON_HEIGHT = 47;
 
 }
