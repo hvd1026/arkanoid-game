@@ -49,6 +49,7 @@ public class Constant {
     public static final int MENU_BUTTON_IMG = 16;
     public static final int WIN_DIALOG_IMG = 17;
     public static final int NEXT_LEVEL_BUTTON_IMG = 18;
+    public static final int LOGO_IMG = 19;
     // stars
     public static final int STAR_SIZE = 20;
 
