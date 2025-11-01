@@ -69,4 +69,18 @@ public class Constant {
     public static final int POWERUP_EXPAND_IMG = 1001;
     public static final int POWERUP_FAST_IMG = 1002;
 
+    //SOUND
+    public static final int BACKGROUND_SOUND = -100;
+    public static final int LOST_SOUND = -200;
+    public static final int NORMAL_BRICK_SOUND = -300;
+    public static final int STRONG_BRICK_SOUND = -400;
+    public static final int PADDLE_SOUND = -500;
+    public static final int POWERUP_SOUND = -600;
+    public static final int WIN_SOUND = -700;
+
+
+
+
+
+
 }
