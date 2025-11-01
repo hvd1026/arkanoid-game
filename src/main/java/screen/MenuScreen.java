@@ -3,7 +3,9 @@ package screen;
 import objects.ui.button.Button;
 import objects.ui.button.StartButton;
 import util.AssetManager;
+import util.Constant;
 import util.MouseHandle;
+import util.SoundManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +19,7 @@ import static util.Constant.SCREEN_WIDTH;
  */
 public class MenuScreen extends Screen {
     private final Button startButton;
+    private boolean soundLoaded = false;
 
     public MenuScreen() {
         // Create a temporary image to get FontMetrics
@@ -30,12 +33,24 @@ public class MenuScreen extends Screen {
         int startButtonX = (SCREEN_WIDTH - startButtonWidth) / 2; // Centered horizontally
         int startButtonY = (SCREEN_HEIGHT - startButtonHeight) / 2; // Centered vertically
         startButton = new StartButton(startButtonX, startButtonY, startButtonWidth, startButtonHeight);
+
+        new Thread(() -> {
+            SoundManager.getInstance().loadAllSound();
+            try {
+                Thread.sleep(500); // Đợi sound load xong
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            soundLoaded = true;
+            SoundManager.getInstance().playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
+        }).start();
     }
 
     @Override
     public void update(double deltaTime) {
         // Check mouse click on start button
         if (MouseHandle.getInstance().isClickOn(startButton)) {
+            SoundManager.getInstance().stopBackgroundMusic();
             MouseHandle.getInstance().changeToDefaultCursor();
             ScreenManager.getInstance().switchScreen(new LevelScreen());
             return;
