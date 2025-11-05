@@ -93,4 +93,18 @@ public class Constant {
     public static final int MENU_BUTTON_WIDTH = 123;
     public static final int MENU_BUTTON_HEIGHT = 47;
 
+    //SOUND
+    public static final int BACKGROUND_SOUND = -100;
+    public static final int LOST_SOUND = -200;
+    public static final int NORMAL_BRICK_SOUND = -300;
+    public static final int STRONG_BRICK_SOUND = -400;
+    public static final int PADDLE_SOUND = -500;
+    public static final int POWERUP_SOUND = -600;
+    public static final int WIN_SOUND = -700;
+
+
+
+
+
+
 }

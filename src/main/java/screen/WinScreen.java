@@ -10,7 +10,12 @@ import util.Constant;
 import util.LevelData;
 import util.MouseHandle;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
+
+import static util.Constant.SCREEN_HEIGHT;
+import static util.Constant.SCREEN_WIDTH;
 
 public class WinScreen extends Screen {
     private int level;
@@ -20,6 +25,9 @@ public class WinScreen extends Screen {
     private final MenuButton menuButton;
     private final WinDialog winDialog;
     private LevelData levelData;
+    private final Button NextLevelButton;
+    private final Button ReStartButton;
+    private final Button MenuButton;
 
     public WinScreen(int level, int star) {
         this.level = level;

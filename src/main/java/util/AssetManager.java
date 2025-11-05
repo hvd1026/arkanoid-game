@@ -55,7 +55,15 @@ public class AssetManager {
         // draw background at (0,0) with size of screen, crop image to fit screen size
         g.drawImage(spriteSheet, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 120, 290, 310, null);
         g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 - 30, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 30, 130, 70, 250, 115, null);
-        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 + 30, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 90, 0, 510, 255, 560, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 + 40, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 100, 0, 510, 255, 560, null);
+
+    }
+
+    public void drawWinScreen(Graphics2D g) {
+        g.drawImage(spriteSheet, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 315, 295, 505, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 - 30, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 30, 130, 70, 250, 115, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 + 40, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 100, 260, 515, 515, 560, null);
+        g.drawImage(spriteSheet, Constant.SCREEN_WIDTH / 2 - 70, Constant.SCREEN_HEIGHT / 2 + 100, Constant.SCREEN_WIDTH / 2 + 70, Constant.SCREEN_HEIGHT / 2 + 160, 255, 70, 380, 115, null);
 
     }
 
