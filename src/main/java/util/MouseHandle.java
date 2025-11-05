@@ -12,6 +12,7 @@ public class MouseHandle implements MouseListener, MouseMotionListener {
     private static MouseHandle instance;
     private boolean mousePressed;
     private Component component;
+    private long lastClickTime = 0;
 
     private MouseHandle() {
         mousePos = new Point(0, 0);
@@ -48,7 +49,15 @@ public class MouseHandle implements MouseListener, MouseMotionListener {
     }
 
     public boolean isClickOn(Button btn) {
-        return isHoverOn(btn) && mousePressed;
+        boolean isClick = isHoverOn(btn) && mousePressed;
+        if (isClick) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastClickTime > Constant.CLICK_DELAY_MS) {
+                lastClickTime = currentTime;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
