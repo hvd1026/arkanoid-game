@@ -7,6 +7,7 @@ public class Constant {
     public static final String TITLE = "Arkanoid Game";
     public static final int GAME_Y_OFFSET = 60; // padding top
     public static final double BALL_START_ANGLE_DEG = 60;
+    public static final long CLICK_DELAY_MS = 300; // delay between clicks
 
     // Paddle
     public static final int PADDLE_WIDTH = 80;
@@ -101,10 +102,6 @@ public class Constant {
     public static final int PADDLE_SOUND = -500;
     public static final int POWERUP_SOUND = -600;
     public static final int WIN_SOUND = -700;
-
-
-
-
 
 
 }
