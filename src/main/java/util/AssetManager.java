@@ -15,6 +15,7 @@ import java.util.Objects;
 public class AssetManager {
     private BufferedImage spriteSheet;
     private BufferedImage backgroundImage;
+    private BufferedImage logo;
     private static AssetManager instance = null;
     public Font deffaultFont;
 
@@ -22,6 +23,7 @@ public class AssetManager {
         deffaultFont = new Font("Arial", Font.BOLD, 25);
         loadSpriteSheet();
         loadBackgroundImage();
+        loadLogo();
     }
 
     public static AssetManager getInstance() {
@@ -73,6 +75,16 @@ public class AssetManager {
             e.printStackTrace();
         }
     }
+
+    private void loadLogo() {
+        try {
+            logo = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/logo.png")));
+        } catch (IOException e) {
+            System.err.println("Can't logo image");
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Draws image from sprite sheet to screen based on id.
@@ -162,6 +174,9 @@ public class AssetManager {
                 break;
             case Constant.NEXT_LEVEL_BUTTON_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 262, 512, 517, 560, null);
+                break;
+            case Constant.LOGO_IMG:
+                g.drawImage(logo, x, y, x + width + 200, y + height, 0, 0, 1200, 375, null);
                 break;
             default:
                 System.err.println("Asset not found: " + id);
