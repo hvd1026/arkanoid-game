@@ -57,6 +57,17 @@ public class MenuScreen extends Screen {
             soundLoaded = true;
             SoundManager.getInstance().playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
         }).start();
+
+        new Thread(() -> {
+            SoundManager.getInstance().loadAllSound();
+            try {
+                Thread.sleep(500); // Đợi sound load xong
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            soundLoaded = true;
+            SoundManager.getInstance().playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
+        }).start();
     }
 
     @Override
