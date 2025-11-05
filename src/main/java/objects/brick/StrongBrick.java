@@ -24,7 +24,8 @@ public class StrongBrick extends Brick {
     }
 
     @Override
-    public void takeHit() {
+    public void takeHit(int damage) {
+        // StrongBrick is unbreakable: ignore damage
         return;
     }
 }

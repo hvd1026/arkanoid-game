@@ -1,12 +1,15 @@
 package objects.movable;
 
 import objects.brick.Brick;
+import objects.brick.StrongBrick;
 import util.AssetManager;
 import util.Constant;
 
 import java.awt.*;
 
 public class Ball extends MovableObject {
+    private int damage = 1;
+    private boolean canBreakStrongBrick = false;
     public Ball(float x, float y, int weight, int height, float dx, float dy) {
         super(x, y, weight, height, dx, dy);
     }
@@ -120,7 +123,11 @@ public class Ball extends MovableObject {
             float deltaY = centerY - closestY;
             if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
                 bounceOff(brick);
-                brick.takeHit();
+                if (brick instanceof StrongBrick && isCanBreakStrongBrick()) {
+                    brick.setHitPoints(0);
+                } else {
+                    brick.takeHit(getDamage());
+                }
             }
 
         }
@@ -138,6 +145,22 @@ public class Ball extends MovableObject {
             setY(Constant.GAME_Y_OFFSET);
             setDy(-getDy());
         }
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = Math.max(1, damage);
+    }
+
+    public boolean isCanBreakStrongBrick() {
+        return canBreakStrongBrick;
+    }
+
+    public void setCanBreakStrongBrick(boolean canBreakStrongBrick) {
+        this.canBreakStrongBrick = canBreakStrongBrick;
     }
 
 }
