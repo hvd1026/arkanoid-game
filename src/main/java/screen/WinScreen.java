@@ -3,7 +3,6 @@ package screen;
 import objects.ui.button.MenuButton;
 import objects.ui.button.NextLevelButton;
 import objects.ui.button.ShowLevelsButton;
-import objects.ui.button.TryAgainButton;
 import objects.ui.dialog.WinDialog;
 import util.AssetManager;
 import util.Constant;
@@ -11,27 +10,18 @@ import util.LevelData;
 import util.MouseHandle;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
-import static util.Constant.SCREEN_HEIGHT;
-import static util.Constant.SCREEN_WIDTH;
-
 public class WinScreen extends Screen {
-    private int level;
-    private int star;
+    private final int level;
     private final NextLevelButton nextLevelButton;
     private final ShowLevelsButton showLevelsButton;
     private final MenuButton menuButton;
     private final WinDialog winDialog;
     private LevelData levelData;
-    private final Button NextLevelButton;
-    private final Button ReStartButton;
-    private final Button MenuButton;
 
     public WinScreen(int level, int star) {
         this.level = level;
-        this.star = star;
         loadLevelData();
         if (levelData.getLevels()[level] < star) {
             levelData.getLevels()[level] = star;
