@@ -7,6 +7,7 @@ import util.Constant;
 import java.awt.*;
 
 public class FastBallPowerUp extends PowerUp {
+    public static final float SPEED_SCALE = 1.4f;
     public FastBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
         setType(PowerUpType.FAST_BALL);
@@ -22,7 +23,7 @@ public class FastBallPowerUp extends PowerUp {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.CYAN);
+        g.setColor(Color.YELLOW);
         g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
@@ -30,17 +31,16 @@ public class FastBallPowerUp extends PowerUp {
     public void applyEffect(GameObject o) {
         if (!(o instanceof Ball)) return;
         Ball ball = (Ball) o;
-        float speedScale = 1.4f;
-        ball.setDx(ball.getDx() * speedScale);
-        ball.setDy(ball.getDy() * speedScale);
+        ball.setDx(ball.getDx() * SPEED_SCALE);
+        ball.setDy(ball.getDy() * SPEED_SCALE);
     }
 
     @Override
     public void removeEffect(GameObject o) {
         if (!(o instanceof Ball)) return;
         Ball ball = (Ball) o;
-        float speedScale = 1.0f / 1.4f;
-        ball.setDx(ball.getDx() * speedScale);
-        ball.setDy(ball.getDy() * speedScale);
+        float inv = 1.0f / SPEED_SCALE;
+        ball.setDx(ball.getDx() * inv);
+        ball.setDy(ball.getDy() * inv);
     }
 }
