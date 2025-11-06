@@ -1,11 +1,13 @@
 package objects.powerup;
 
 import objects.GameObject;
+import util.AssetManager;
 
 import java.awt.*;
 
+import static util.Constant.POWERUP_MULTIBALL_IMG;
+
 public class MultiBallPowerUp extends PowerUp {
-    private int ballsToSpawn = 2; // số bóng sẽ spawn thêm
 
     public MultiBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -13,18 +15,9 @@ public class MultiBallPowerUp extends PowerUp {
         setDuration(0); // hiệu ứng tức thời
     }
 
-    public int getBallsToSpawn() {
-        return ballsToSpawn;
-    }
-
-    public void setBallsToSpawn(int ballsToSpawn) {
-        this.ballsToSpawn = Math.max(1, ballsToSpawn);
-    }
-
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.PINK);
-        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, POWERUP_MULTIBALL_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
     @Override
