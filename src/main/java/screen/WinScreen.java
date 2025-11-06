@@ -12,6 +12,8 @@ import util.MouseHandle;
 import java.awt.*;
 import java.io.*;
 
+import static util.Constant.SCREEN_WIDTH;
+
 public class WinScreen extends Screen {
     private final int level;
     private final NextLevelButton nextLevelButton;
@@ -117,6 +119,11 @@ public class WinScreen extends Screen {
     @Override
     public void render(java.awt.Graphics2D g) {
         AssetManager.getInstance().drawBackground(g);
+        AssetManager.getInstance().draw(g, Constant.LOGO_IMG,
+                (SCREEN_WIDTH - 670) / 2,
+                60,
+                500,
+                156);
         winDialog.render(g);
         nextLevelButton.render(g);
         showLevelsButton.render(g);

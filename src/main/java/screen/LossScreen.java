@@ -10,6 +10,8 @@ import util.MouseHandle;
 
 import java.awt.*;
 
+import static util.Constant.SCREEN_WIDTH;
+
 public class LossScreen extends Screen {
     private final int level;
     private final TryAgainButton tryAgainButton;
@@ -78,6 +80,13 @@ public class LossScreen extends Screen {
     @Override
     public void render(Graphics2D g) {
         AssetManager.getInstance().drawBackground(g);
+        AssetManager.getInstance().draw(g,
+                Constant.LOGO_IMG,
+                (SCREEN_WIDTH - 670) / 2,
+                60,
+                500,
+                156);
+
         lossDialog.render(g);
         tryAgainButton.render(g);
         showLevelsButton.render(g);
