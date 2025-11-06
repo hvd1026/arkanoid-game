@@ -2,9 +2,12 @@ package objects.powerup;
 
 import objects.GameObject;
 import objects.movable.Paddle;
+import util.AssetManager;
 import util.Constant;
 
 import java.awt.*;
+
+import static util.Constant.POWERUP_EXPAND_IMG;
 
 public class ExpandPaddlePowerUp extends PowerUp {
     public ExpandPaddlePowerUp(float x, float y, int width, int height) {
@@ -22,14 +25,12 @@ public class ExpandPaddlePowerUp extends PowerUp {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.GREEN);
-        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, POWERUP_EXPAND_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
     @Override
     public void applyEffect(GameObject o) {
-        if (!(o instanceof Paddle)) return;
-        Paddle paddle = (Paddle) o;
+        if (!(o instanceof Paddle paddle)) return;
         int newWidth = (int) (paddle.getWidth() * 1.5f);
         // clamp trong màn hình
         newWidth = Math.min(newWidth, Constant.SCREEN_WIDTH);
@@ -41,8 +42,7 @@ public class ExpandPaddlePowerUp extends PowerUp {
 
     @Override
     public void removeEffect(GameObject o) {
-        if (!(o instanceof Paddle)) return;
-        Paddle paddle = (Paddle) o;
+        if (!(o instanceof Paddle paddle)) return;
         int original = Constant.PADDLE_WIDTH;
         int delta = paddle.getWidth() - original;
         paddle.setWidth(original);
