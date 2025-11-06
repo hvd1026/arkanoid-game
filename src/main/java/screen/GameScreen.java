@@ -22,22 +22,22 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class GameScreen extends Screen {
-    private Paddle paddle;
-    private ArrayList<Ball> balls = new ArrayList<>();
+    private final Paddle paddle;
+    private final ArrayList<Ball> balls = new ArrayList<>();
     private boolean ballFollowingPaddle = true;
     private int star = 3;
-    private int level;
-    private ArrayList<Brick> bricks;
-    private ArrayList<Brick> brickLine;
-    private ArrayList<PowerUp> fallingPowerUps = new ArrayList<>();
-    private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
+    private final int level;
+    private final ArrayList<Brick> bricks;
+    private final ArrayList<Brick> brickLine;
+    private final ArrayList<PowerUp> fallingPowerUps = new ArrayList<>();
+    private final ArrayList<PowerUp> activePowerUps = new ArrayList<>();
     private final Random rng = new Random();
 
     public GameScreen(int level) {
-        paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2,
+        paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2f,
                 Constant.SCREEN_HEIGHT - Constant.PADDLE_Y_OFFSET - Constant.PADDLE_HEIGHT,
                 Constant.PADDLE_WIDTH, Constant.PADDLE_HEIGHT);
-        float ballX = paddle.getX() + paddle.getWidth() / 2 - Constant.BALL_RADIUS;
+        float ballX = paddle.getX() + paddle.getWidth() / 2f - Constant.BALL_RADIUS;
         float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
         balls.add(new Ball(ballX, ballY, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS, 0, 0));
         this.level = level;
@@ -45,7 +45,7 @@ public class GameScreen extends Screen {
         bricks = map.getBricks();
 
         // draw brick line at top
-        brickLine = new ArrayList<Brick>();
+        brickLine = new ArrayList<>();
         float brickPosY = Constant.GAME_Y_OFFSET - Constant.BRICK_HEIGHT;
         for (int i = 0; i < Constant.BRICK_COLUMNS; i++) {
             brickLine.add(new StrongBrick(i * Constant.BRICK_WIDTH, brickPosY, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT));
@@ -138,10 +138,8 @@ public class GameScreen extends Screen {
                                 activePowerUps.add(dd);
                             }
                         }
-                        case MULTI_BALL -> {
-                            handleMultiBall();
-                            // hiệu ứng tức thời – không add vào active list
-                        }
+                        case MULTI_BALL -> // hiệu ứng tức thời – không add vào active list
+                                handleMultiBall();
                     }
                 }
                 pit.remove();
@@ -159,13 +157,7 @@ public class GameScreen extends Screen {
         }
 
         // remove balls ra ngoài màn
-        Iterator<Ball> bit = balls.iterator();
-        while (bit.hasNext()) {
-            Ball b = bit.next();
-            if (b.getY() > Constant.SCREEN_HEIGHT) {
-                bit.remove();
-            }
-        }
+        balls.removeIf(b -> b.getY() > Constant.SCREEN_HEIGHT);
 
         // nếu hết bóng -> mất 1 mạng và respawn 1 bóng bám paddle
         if (balls.isEmpty()) {
@@ -203,10 +195,10 @@ public class GameScreen extends Screen {
 
         for (int i = 0; i < star; i++) {
             AssetManager.getInstance().draw(g, Constant.STAR_IMG,
-                                        700 + i * (Constant.STAR_SIZE + 5),
-                                        10,
-                                        Constant.STAR_SIZE,
-                                        Constant.STAR_SIZE);
+                    700 + i * (Constant.STAR_SIZE + 5),
+                    10,
+                    Constant.STAR_SIZE,
+                    Constant.STAR_SIZE);
         }
 
         // draw level text
@@ -224,8 +216,8 @@ public class GameScreen extends Screen {
         // follow
         if (ballFollowingPaddle) {
             if (!balls.isEmpty()) {
-                Ball first = balls.get(0);
-                float ballX = paddle.getX() + paddle.getWidth() / 2 - Constant.BALL_RADIUS;
+                Ball first = balls.getFirst();
+                float ballX = paddle.getX() + paddle.getWidth() / 2f - Constant.BALL_RADIUS;
                 float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
                 first.setX(ballX);
                 first.setY(ballY);
@@ -237,7 +229,7 @@ public class GameScreen extends Screen {
             ballFollowingPaddle = false;
             // di len tren ben phai goc 60 do
             if (!balls.isEmpty()) {
-                Ball first = balls.get(0);
+                Ball first = balls.getFirst();
                 first.setDx(Constant.BALL_SPEED * (float) Math.cos(Math.toRadians(Constant.BALL_START_ANGLE_DEG)));
                 first.setDy(-Constant.BALL_SPEED * (float) Math.sin(Math.toRadians(Constant.BALL_START_ANGLE_DEG)));
             }
@@ -246,9 +238,9 @@ public class GameScreen extends Screen {
 
     private boolean isIntersect(GameObject a, GameObject b) {
         return a.getX() < b.getX() + b.getWidth() &&
-               a.getX() + a.getWidth() > b.getX() &&
-               a.getY() < b.getY() + b.getHeight() &&
-               a.getY() + a.getHeight() > b.getY();
+                a.getX() + a.getWidth() > b.getX() &&
+                a.getY() < b.getY() + b.getHeight() &&
+                a.getY() + a.getHeight() > b.getY();
     }
 
     private void maybeSpawnPowerUp(Brick b) {
@@ -258,7 +250,7 @@ public class GameScreen extends Screen {
             PowerUp p;
             float px = b.getX() + b.getWidth() / 2f - 12;
             float py = b.getY() + b.getHeight();
-            int w = 24, h = 12; // hình chữ nhật dài gấp đôi rộng
+            int w = Constant.POWERUP_WIDTH, h = Constant.POWERUP_HEIGHT;
             if (t == 0) p = new ExpandPaddlePowerUp(px, py, w, h);
             else if (t == 1) p = new FastBallPowerUp(px, py, w, h);
             else if (t == 2) p = new MultiBallPowerUp(px, py, w, h);
@@ -274,7 +266,7 @@ public class GameScreen extends Screen {
             return;
         }
         // dựa trên quả đầu tiên để nhân bản
-        Ball base = balls.get(0);
+        Ball base = balls.getFirst();
         float x = base.getX();
         float y = base.getY();
         float speed = (float) Math.sqrt(base.getDx() * base.getDx() + base.getDy() * base.getDy());
@@ -384,7 +376,7 @@ public class GameScreen extends Screen {
     }
 
     private void respawnSingleBallOnPaddle() {
-        float ballX = paddle.getX() + paddle.getWidth() / 2 - Constant.BALL_RADIUS;
+        float ballX = paddle.getX() + paddle.getWidth() / 2f - Constant.BALL_RADIUS;
         float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
         balls.add(new Ball(ballX, ballY, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS, 0, 0));
     }

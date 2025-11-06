@@ -2,9 +2,12 @@ package objects.powerup;
 
 import objects.GameObject;
 import objects.movable.Ball;
+import util.AssetManager;
 import util.Constant;
 
 import java.awt.*;
+
+import static util.Constant.POWERUP_DOUBLE_DAMAGE_IMG;
 
 public class DoubleDamagePowerUp extends PowerUp {
     private boolean previousCanBreakStrong;
@@ -17,22 +20,19 @@ public class DoubleDamagePowerUp extends PowerUp {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.BLUE);
-        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, POWERUP_DOUBLE_DAMAGE_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
     @Override
     public void applyEffect(GameObject o) {
-        if (!(o instanceof Ball)) return;
-        Ball ball = (Ball) o;
+        if (!(o instanceof Ball ball)) return;
         previousCanBreakStrong = ball.isCanBreakStrongBrick();
         ball.setCanBreakStrongBrick(true);
     }
 
     @Override
     public void removeEffect(GameObject o) {
-        if (!(o instanceof Ball)) return;
-        Ball ball = (Ball) o;
+        if (!(o instanceof Ball ball)) return;
         ball.setCanBreakStrongBrick(previousCanBreakStrong);
     }
 }

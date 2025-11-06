@@ -35,10 +35,10 @@ public class WinScreen extends Screen {
 
         // Next level Button
         nextLevelButton = new NextLevelButton(
-                (Constant.SCREEN_WIDTH - Constant.TRY_AGAIN_BUTTON_WIDTH) / 2,
-                Constant.SCREEN_HEIGHT - Constant.TRY_AGAIN_BUTTON_HEIGHT - Constant.PADDING_DIALOG_BOTTOM - 25,
-                Constant.TRY_AGAIN_BUTTON_WIDTH, Constant.TRY_AGAIN_BUTTON_HEIGHT);
-        int nextLevelButtonPaddingX = (Constant.DIALOG_WIDTH - Constant.TRY_AGAIN_BUTTON_WIDTH) / 2;
+                (Constant.SCREEN_WIDTH - Constant.NEXT_LEVEL_BUTTON_WIDTH) / 2,
+                Constant.SCREEN_HEIGHT - Constant.NEXT_LEVEL_BUTTON_HEIGHT - Constant.PADDING_DIALOG_BOTTOM - 25,
+                Constant.NEXT_LEVEL_BUTTON_WIDTH, Constant.NEXT_LEVEL_BUTTON_HEIGHT);
+        int nextLevelButtonPaddingX = (Constant.DIALOG_WIDTH - Constant.NEXT_LEVEL_BUTTON_WIDTH) / 2;
         // Show Levels Button
         showLevelsButton = new ShowLevelsButton(
                 dialogX + Constant.DIALOG_WIDTH - nextLevelButtonPaddingX - Constant.SHOW_LEVELS_BUTTON_WIDTH,
