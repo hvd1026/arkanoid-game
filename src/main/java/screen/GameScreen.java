@@ -10,7 +10,6 @@ import objects.powerup.DoubleDamagePowerUp;
 import objects.powerup.MultiBallPowerUp;
 import objects.powerup.PowerUp;
 import objects.powerup.PowerUpType;
-import objects.ui.button.ExitButton;
 import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
