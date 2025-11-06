@@ -33,6 +33,7 @@ public class FastBallPowerUp extends PowerUp {
     @Override
     public void applyEffect(GameObject o) {
         if (!(o instanceof Ball ball)) return;
+        addAppliedTo(ball);
         ball.setDx(ball.getDx() * SPEED_SCALE);
         ball.setDy(ball.getDy() * SPEED_SCALE);
     }

@@ -31,6 +31,7 @@ public class ExpandPaddlePowerUp extends PowerUp {
     @Override
     public void applyEffect(GameObject o) {
         if (!(o instanceof Paddle paddle)) return;
+        addAppliedTo(paddle);
         int newWidth = (int) (paddle.getWidth() * 1.5f);
         // clamp trong màn hình
         newWidth = Math.min(newWidth, Constant.SCREEN_WIDTH);
