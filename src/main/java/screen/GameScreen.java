@@ -10,6 +10,7 @@ import objects.powerup.DoubleDamagePowerUp;
 import objects.powerup.MultiBallPowerUp;
 import objects.powerup.PowerUp;
 import objects.powerup.PowerUpType;
+import objects.ui.button.ExitButton;
 import util.AssetManager;
 import util.Constant;
 import util.KeyHandle;
@@ -207,6 +208,12 @@ public class GameScreen extends Screen {
                                         Constant.STAR_SIZE,
                                         Constant.STAR_SIZE);
         }
+
+        // draw level text
+
+        g.setFont(AssetManager.getInstance().getDefaultFont());
+        g.setColor(Color.WHITE);
+        g.drawString(String.format("LEVEL %d", level), 350,30 );
 
         g.dispose();
 
