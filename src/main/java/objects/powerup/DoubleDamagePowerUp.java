@@ -26,6 +26,7 @@ public class DoubleDamagePowerUp extends PowerUp {
     @Override
     public void applyEffect(GameObject o) {
         if (!(o instanceof Ball ball)) return;
+        addAppliedTo(ball);
         previousCanBreakStrong = ball.isCanBreakStrongBrick();
         ball.setCanBreakStrongBrick(true);
     }

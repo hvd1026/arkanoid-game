@@ -1,21 +1,22 @@
 package objects.powerup;
 
 import objects.GameObject;
+import objects.movable.Ball;
 import util.Constant;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class PowerUp extends GameObject {
     private PowerUpType type;
     private int duration;
     private long activatedTime;
     private boolean isActivated;
-    private GameObject appliedTo;
-    private float dy = Constant.POWERUP_FALL_SPEED;
-
+    private final ArrayList<GameObject> appliedTo;
 
     public PowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
+        appliedTo = new ArrayList<>();
     }
 
     // Getters  and Setters
@@ -36,7 +37,7 @@ public abstract class PowerUp extends GameObject {
         return isActivated;
     }
 
-    public GameObject getAppliedTo() {
+    public ArrayList<GameObject> getAppliedTo() {
         return appliedTo;
     }
 
@@ -56,8 +57,28 @@ public abstract class PowerUp extends GameObject {
         isActivated = activated;
     }
 
-    public void setAppliedTo(GameObject appliedTo) {
-        this.appliedTo = appliedTo;
+    public void addAppliedTo(GameObject o) {
+        appliedTo.add(o);
+    }
+
+    public void bulkApplyEffect(ArrayList<Ball> balls) {
+        for (Ball ball : balls) {
+            applyEffect(ball);
+        }
+    }
+
+    public void bulkRemoveEffect() {
+        for (GameObject o : appliedTo) {
+            removeEffect(o);
+        }
+    }
+
+    public void syncEffect(ArrayList<Ball> balls) {
+        for (Ball ball : balls) {
+            if (!appliedTo.contains(ball)) {
+                applyEffect(ball);
+            }
+        }
     }
 
     public abstract void applyEffect(GameObject o);
@@ -67,27 +88,14 @@ public abstract class PowerUp extends GameObject {
     @Override
     public void update(double deltaTime) {
         if (!isActivated) {
-            setY(getY() + dy * (float) deltaTime);
+            setY(getY() + Constant.POWERUP_FALL_SPEED * (float) deltaTime);
         }
-    }
-
-    @Override
-    public void render(Graphics2D g) {
-        g.setColor(Color.YELLOW);
-        g.fillOval((int) getX(), (int) getY(), getWidth(), getHeight());
     }
 
     public boolean isExpired() {
         if (!isActivated) return false;
-        if (duration <= 0) return true; // tức thời
+        if (duration <= 0) return true; // instant powerup
         return System.currentTimeMillis() - activatedTime >= duration;
     }
-
-    public void activate(GameObject target) {
-        if (isActivated) return;
-        setAppliedTo(target);
-        applyEffect(target);
-        setActivated(true);
-        setActivatedTime(System.currentTimeMillis());
-    }
+    
 }
