@@ -46,15 +46,18 @@ public class MenuScreen extends Screen {
         int exitButtonX = (SCREEN_WIDTH - exitButtonWidth) / 2; // Centered horizontally
         int exitButtonY = ((SCREEN_HEIGHT - exitButtonHeight) / 2) + 50; // Centered vertically
         exitButton = new ExitButton(exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight);
+
+        //Background Sound
         new Thread(() -> {
-            SoundManager.getInstance().loadAllSound();
+            SoundManager sound = SoundManager.getInstance();
+            sound.loadAllSound();
             try {
                 Thread.sleep(500); // Đợi sound load xong
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             soundLoaded = true;
-            SoundManager.getInstance().playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
+            sound.playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
         }).start();
     }
 

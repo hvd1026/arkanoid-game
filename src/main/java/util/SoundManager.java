@@ -1,27 +1,29 @@
 package util;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
-import java.net.URL;
+import javazoom.jl.player.advanced.AdvancedPlayer;
+import javazoom.jl.player.Player;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 //SINGLETON WITH SOUND
 public class SoundManager {
     private static volatile SoundManager instance;     //Chỉ có 1 instance trong đa luồng
-
-    private final Map<Integer, MediaPlayer> soundPlayers = new ConcurrentHashMap<>();
-    private MediaPlayer backgroundPlayer;
+    private AdvancedPlayer bgPlayer; //Dùng để dừng nhạc background
+    private final Map<Integer, byte[]> soundData = new ConcurrentHashMap<>();
+    private Thread backgroundThread;
+    private volatile boolean stopBackground = false;
     private boolean soundMute = false;
     private boolean musicMute = false;
 
-    private SoundManager() {
-        new javafx.embed.swing.JFXPanel();
+    private SoundManager(){
     }
 
     public static SoundManager getInstance() {
         if (instance == null) {
+            //Dù nhiều luồng gọi thì vẫn chỉ có 1 đối tượng
             synchronized (SoundManager.class) {
                 if (instance == null) {
                     instance = new SoundManager();
@@ -31,7 +33,7 @@ public class SoundManager {
         return instance;
     }
 
-
+    //Load Sound Theo ID Trong Constant
     public void loadAllSound() {
         //Thread riêng để Load Sound mà k ảnh hưởng đến game
         new Thread(() -> {
@@ -45,120 +47,127 @@ public class SoundManager {
         }).start();
     }
 
-    private void loadSound(int idSound) {
-        String path = null;
+    private String getSoundPath(int idSound) {
         switch (idSound) {
             case Constant.BACKGROUND_SOUND:
-                path = "/audio/background_music.mp3";
-                break;
+                return "/audio/background_music.mp3";
             case Constant.LOST_SOUND:
-                path = "/audio/lost.mp3";
-                break;
+                return "/audio/lost.mp3";
             case Constant.NORMAL_BRICK_SOUND:
-                path = "/audio/normal_brick.mp3";
-                break;
+                return "/audio/normal_brick.mp3";
             case Constant.STRONG_BRICK_SOUND:
-                path = "/audio/strong_brick.mp3";
-                break;
+                return "/audio/strong_brick.mp3";
             case Constant.PADDLE_SOUND:
-                path = "/audio/paddle.mp3";
-                break;
+                return "/audio/paddle.mp3";
             case Constant.POWERUP_SOUND:
-                path = "/audio/powerup.mp3";
-                break;
+                return "/audio/powerup.mp3";
             case Constant.WIN_SOUND:
-                path = "/audio/win.mp3";
-                break;
-
-
+                return "/audio/win.mp3";
+            default:
+                return null;
         }
+    }
+
+    private void loadSound(int idSound) {
+        String path = getSoundPath(idSound);
+        if (path == null) return;
         try {
-            URL soundURL = getClass().getResource(path);
-            if (soundURL == null) {
-                System.err.println("Sound not found :" + path);
+            InputStream is = getClass().getResourceAsStream(path);
+            if (is == null) {
+                System.err.println(path + " not found");
                 return;
             }
-            Media media = new Media(soundURL.toExternalForm());
-            MediaPlayer player = new MediaPlayer(media);
-            soundPlayers.put(idSound, player);
-            System.out.println("Completed " + soundPlayers.get(idSound));
+            //Doc cac file vao byte[]
+            byte[] buffer = is.readAllBytes();
+            soundData.put(idSound, buffer);
+            is.close();
+            System.out.println("Loaded sound" + path);
         } catch (Exception e) {
-            System.err.println("Error loading " + soundPlayers.get(idSound));
+            System.err.println("Error loading " + path);
             e.printStackTrace();
         }
     }
 
     public void playSound(int idSound) {
         if (soundMute) return;
-        MediaPlayer player = soundPlayers.get(idSound);
-        if (player != null) {
-            new Thread(() -> {
-                synchronized (player) {
-                    player.stop();
-                    player.seek(Duration.ZERO);
-                    player.setVolume(1.0);
-                    player.play();
-                }
-            }).start();
-        }
-        else {
-            System.err.println("Sound not found:" + idSound);
 
+        byte[] data = soundData.get(idSound);
+        if (data == null) {
+            System.err.println("Sound " + idSound + " not found");
+            return;
+        }
+
+        new  Thread(() -> {
+            try {
+                InputStream is = new BufferedInputStream(new ByteArrayInputStream(data));
+                Player player = new Player(is);
+                player.play();
+            } catch (Exception e) {
+                System.err.println("Error playing sound " + idSound);
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    //Dùng AdvancePlayer để quản lý dừng nhạc
+    public void playBackgroundMusic(int idSound, boolean loop) {
+        stopBackgroundMusic();
+
+        byte[] data = soundData.get(idSound);
+        if (data == null) {
+            System.err.println("Sound " + idSound + " not found");
+            return;
+        }
+
+        stopBackground = false;
+        backgroundThread = new Thread(() -> {
+            try {
+                do {
+                    if (stopBackground || musicMute || Thread.interrupted()) break;
+                    try (InputStream is = new BufferedInputStream(new ByteArrayInputStream(data))) {
+                        bgPlayer = new AdvancedPlayer(is);
+                        bgPlayer.play();
+                    }
+                } while (loop && !stopBackground && !musicMute && !Thread.interrupted()); // Nếu loop=true thì chạy lại
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, "BackgroundMusicThread");
+        backgroundThread.start();
+    }
+
+    public void stopBackgroundMusic() {
+        stopBackground = true;
+        try {
+            if (bgPlayer != null) {
+                bgPlayer.close();
+                bgPlayer = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Ngắt luồng phát nhạc
+        if (backgroundThread != null && backgroundThread.isAlive()) {
+            backgroundThread.interrupt();
+            backgroundThread = null; //Giải phóng
         }
     }
 
     public void muteSound() {
         soundMute = true;
-        soundPlayers.values().forEach(p -> p.setMute(true));
         System.out.println("SOUND MUTED!!!");
     }
 
     public void unmountSound() {
         soundMute = false;
-        soundPlayers.values().forEach(p -> p.setMute(false));
         System.out.println("SOUND UNMOUNTED!!!");
     }
 
-    public void playBackgroundMusic(int idSound, boolean loop) {
-        stopBackgroundMusic();
-        MediaPlayer player = soundPlayers.get(idSound);
-        if (player == null) {
-            System.err.println("Background music playing " + idSound);
-            return;
-        }
-        backgroundPlayer = player;
-        backgroundPlayer.setMute(musicMute);
-        backgroundPlayer.setVolume(0.5);
-        if (loop) {
-            backgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        }
-        else {
-            backgroundPlayer.setCycleCount(1);
-        }
-        backgroundPlayer.play();
-        System.out.println("Background music playing ");
+    public boolean isSoundMuted() {
+        return soundMute;
     }
 
-    public void stopBackgroundMusic() {
-        if (backgroundPlayer != null) {
-            backgroundPlayer.stop();
-        }
-    }
-
-    public void muteMusic() {
-        musicMute = true;
-        if (backgroundPlayer != null) {
-            backgroundPlayer.setMute(true);
-            System.out.println("Music muted!!!");
-        }
-    }
-
-    public void unmuteMusic() {
-        musicMute = false;
-        if (backgroundPlayer != null) {
-            backgroundPlayer.setMute(false);
-            backgroundPlayer.play();
-        }
-        System.out.println("Music Unmuted!!!");
+    public boolean isMusicMuted() {
+        return musicMute;
     }
 }
