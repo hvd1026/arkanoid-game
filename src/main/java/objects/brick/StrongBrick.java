@@ -2,6 +2,7 @@ package objects.brick;
 
 import util.AssetManager;
 import util.Constant;
+import util.SoundManager;
 
 import java.awt.*;
 
@@ -25,7 +26,7 @@ public class StrongBrick extends Brick {
 
     @Override
     public void takeHit(int damage) {
-        // StrongBrick is unbreakable: ignore damage
+        SoundManager.getInstance().playAudio("strong_brick");
         return;
     }
 }

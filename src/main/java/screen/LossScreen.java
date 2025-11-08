@@ -7,6 +7,7 @@ import objects.ui.dialog.LossDialog;
 import util.AssetManager;
 import util.Constant;
 import util.MouseHandle;
+import util.SoundManager;
 
 import java.awt.*;
 
@@ -42,6 +43,10 @@ public class LossScreen extends Screen {
                 dialogX + tryAgainButtonPaddingX,
                 dialogY + 50,
                 Constant.MENU_BUTTON_WIDTH, Constant.MENU_BUTTON_HEIGHT);
+        // set volume of background music
+        SoundManager.getInstance().setMusicVolume(0.2f);
+        // Play lost sound
+        SoundManager.getInstance().playAudio("lost");
 
     }
 
@@ -61,7 +66,7 @@ public class LossScreen extends Screen {
         } else {
             MouseHandle.getInstance().changeToDefaultCursor();
         }
-        
+
         // check click on buttons
         if (MouseHandle.getInstance().isClickOn(menuButton)) {
             MouseHandle.getInstance().changeToDefaultCursor();

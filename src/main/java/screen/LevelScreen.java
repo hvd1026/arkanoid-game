@@ -4,6 +4,7 @@ import objects.ui.button.LevelButton;
 import util.AssetManager;
 import util.LevelData;
 import util.MouseHandle;
+import util.SoundManager;
 
 import java.awt.*;
 import java.io.File;
@@ -24,6 +25,8 @@ public class LevelScreen extends Screen {
     public LevelScreen() {
         levelData = new LevelData(); // Initialize with default or empty LevelData
         loadLevelData();
+        // set volume of background music
+        SoundManager.getInstance().setMusicVolume(1.0f);
     }
 
     private void loadLevelData() {

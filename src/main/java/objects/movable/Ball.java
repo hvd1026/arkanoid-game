@@ -4,12 +4,14 @@ import objects.brick.Brick;
 import objects.brick.StrongBrick;
 import util.AssetManager;
 import util.Constant;
+import util.SoundManager;
 
 import java.awt.*;
 
 public class Ball extends MovableObject {
     private int damage = 1;
     private boolean canBreakStrongBrick = false;
+
     public Ball(float x, float y, int weight, int height, float dx, float dy) {
         super(x, y, weight, height, dx, dy);
     }
@@ -110,6 +112,7 @@ public class Ball extends MovableObject {
             float deltaX = centerX - closestX;
             float deltaY = centerY - closestY;
             if (deltaX * deltaX + deltaY * deltaY < radius * radius) { // va cham vi khoang cach < r
+                SoundManager.getInstance().playAudio("paddle");
                 bounceOff(paddle);
             }
         }
@@ -123,10 +126,9 @@ public class Ball extends MovableObject {
             float deltaY = centerY - closestY;
             if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
                 bounceOff(brick);
+                brick.takeHit(getDamage());
                 if (brick instanceof StrongBrick && isCanBreakStrongBrick()) {
                     brick.setHitPoints(0);
-                } else {
-                    brick.takeHit(getDamage());
                 }
             }
 
@@ -144,6 +146,7 @@ public class Ball extends MovableObject {
         if (getY() <= Constant.GAME_Y_OFFSET) { // top
             setY(Constant.GAME_Y_OFFSET);
             setDy(-getDy());
+            SoundManager.getInstance().playAudio("strong_brick");
         }
     }
 

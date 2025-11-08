@@ -4,10 +4,7 @@ import objects.brick.*;
 import objects.movable.Ball;
 import objects.movable.Paddle;
 import objects.powerup.*;
-import util.AssetManager;
-import util.Constant;
-import util.KeyHandle;
-import util.Map;
+import util.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -43,6 +40,9 @@ public class GameScreen extends Screen {
 
         // power up manager
         powerUpManager = new PowerUpManager(paddle, balls);
+
+        // set volume of background music
+        SoundManager.getInstance().setMusicVolume(0.3f);
     }
 
 
