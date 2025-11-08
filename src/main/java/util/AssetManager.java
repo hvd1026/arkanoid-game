@@ -166,6 +166,15 @@ public class AssetManager {
             case Constant.LOGO_IMG:
                 g.drawImage(logo, x, y, x + width + 200, y + height, 0, 0, 1200, 375, null);
                 break;
+            case Constant.PAUSE_DIALOG_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 403, 312, 697, 503, null);
+                break;
+            case Constant.RESUME_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 409, 257, 664, 305, null);
+                break;
+            case Constant.RESTART_BUTTON_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 255, 69, 378, 116, null);
+                break;
             default:
                 System.err.println("Asset not found: " + id);
                 break;

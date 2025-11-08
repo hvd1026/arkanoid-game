@@ -6,12 +6,13 @@ import java.awt.event.KeyListener;
 
 public class KeyHandle implements KeyListener {
     private static KeyHandle instance;
-    public boolean spacePressed, leftPressed, rightPressed;
+    public boolean spacePressed, leftPressed, rightPressed, escPressed;
 
     private KeyHandle() {
         spacePressed = false;
         leftPressed = false;
         rightPressed = false;
+        escPressed = false;
     }
 
     public static KeyHandle getInstance() {
@@ -38,6 +39,9 @@ public class KeyHandle implements KeyListener {
         if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            escPressed = true;
+        }
     }
 
     @Override
@@ -51,6 +55,9 @@ public class KeyHandle implements KeyListener {
         }
         if (code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            escPressed = false;
         }
     }
 
