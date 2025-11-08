@@ -21,7 +21,6 @@ import static util.Constant.SCREEN_WIDTH;
 public class MenuScreen extends Screen {
     private final Button startButton;
     private final Button exitButton;
-    private boolean soundLoaded = false;
 
     public MenuScreen() {
         // Create a temporary image to get FontMetrics
@@ -47,25 +46,15 @@ public class MenuScreen extends Screen {
         int exitButtonY = ((SCREEN_HEIGHT - exitButtonHeight) / 2) + 50; // Centered vertically
         exitButton = new ExitButton(exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight);
 
-        //Background Sound
-        new Thread(() -> {
-            SoundManager sound = SoundManager.getInstance();
-            sound.loadAllSound();
-            try {
-                Thread.sleep(500); // Đợi sound load xong
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            soundLoaded = true;
-            sound.playBackgroundMusic(Constant.BACKGROUND_SOUND, true);
-        }).start();
+        // set volume of background music
+        SoundManager.getInstance().setMusicVolume(1.0f);
+
     }
 
     @Override
     public void update(double deltaTime) {
         // Check mouse click on start button
         if (MouseHandle.getInstance().isClickOn(startButton)) {
-            SoundManager.getInstance().stopBackgroundMusic();
             MouseHandle.getInstance().changeToDefaultCursor();
             ScreenManager.getInstance().switchScreen(new LevelScreen());
             return;

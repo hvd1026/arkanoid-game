@@ -4,10 +4,7 @@ import objects.ui.button.MenuButton;
 import objects.ui.button.NextLevelButton;
 import objects.ui.button.ShowLevelsButton;
 import objects.ui.dialog.WinDialog;
-import util.AssetManager;
-import util.Constant;
-import util.LevelData;
-import util.MouseHandle;
+import util.*;
 
 import java.awt.*;
 import java.io.*;
@@ -51,6 +48,10 @@ public class WinScreen extends Screen {
                 dialogX + nextLevelButtonPaddingX,
                 dialogY + 50,
                 Constant.MENU_BUTTON_WIDTH, Constant.MENU_BUTTON_HEIGHT);
+        // set volume of background music
+        SoundManager.getInstance().setMusicVolume(0.2f);
+        // Play win sound
+        SoundManager.getInstance().playAudio("win");
     }
 
     private void loadLevelData() {

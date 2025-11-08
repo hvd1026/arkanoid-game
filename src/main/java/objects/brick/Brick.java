@@ -18,9 +18,7 @@ public abstract class Brick extends GameObject {
     }
 
     // do ben cua gach sau khi cham bong.
-    public void takeHit(int damage) {
-        setHitPoints(getHitPoints() - Math.max(1, damage));
-    }
+    public abstract void takeHit(int damage);
 
     // ham kiem tra gach bi pha.
     public boolean isDestroyed() {

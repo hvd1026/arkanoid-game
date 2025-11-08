@@ -7,6 +7,7 @@ import screen.WinScreen;
 import util.AssetManager;
 import util.Constant;
 import util.MouseHandle;
+import util.SoundManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,10 @@ public class GamePanel extends JPanel implements Runnable {
         AssetManager.getInstance();
         // initialize screen manager, start with menu screen
         ScreenManager.getInstance().switchScreen(new MenuScreen());
+        // Load sounds
+        SoundManager.getInstance().loadAll();
+        SoundManager.getInstance().playBackgroundMusic();
+
     }
 
     public void startGameThread() {

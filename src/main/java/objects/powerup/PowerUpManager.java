@@ -5,6 +5,7 @@ import objects.brick.Brick;
 import objects.movable.Ball;
 import objects.movable.Paddle;
 import util.Constant;
+import util.SoundManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ public class PowerUpManager {
             }
             // if powerup collides with paddle
             if (isIntersect(p, paddle)) {
+                SoundManager.getInstance().playAudio("powerup");
                 // if ball is following paddle, ignore powerup
                 if (ballFollowingPaddle) {
                     pit.remove();
