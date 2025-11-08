@@ -48,6 +48,12 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(double deltaTime) {
+        // pause game
+        if (KeyHandle.getInstance().escPressed) {
+            ScreenManager.getInstance().switchScreen(new PauseScreen(this));
+            return;
+        }
+
         followPaddle(); // ball will follow paddle before game starts
         paddle.update(deltaTime);
         for (Ball b : balls) {
@@ -133,7 +139,7 @@ public class GameScreen extends Screen {
         g.setColor(Color.WHITE);
         g.drawString(String.format("LEVEL %d", level), 350, 30);
 
-        g.dispose();
+//        g.dispose();
     }
 
 
@@ -164,5 +170,9 @@ public class GameScreen extends Screen {
         float ballX = paddle.getX() + paddle.getWidth() / 2f - Constant.BALL_RADIUS;
         float ballY = paddle.getY() - Constant.BALL_RADIUS * 2;
         balls.add(new Ball(ballX, ballY, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS, 0, 0));
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

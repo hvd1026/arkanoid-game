@@ -50,6 +50,9 @@ public class Constant {
     public static final int WIN_DIALOG_IMG = 17;
     public static final int NEXT_LEVEL_BUTTON_IMG = 18;
     public static final int LOGO_IMG = 19;
+    public static final int PAUSE_DIALOG_IMG = 20;
+    public static final int RESUME_BUTTON_IMG = 21;
+    public static final int RESTART_BUTTON_IMG = 22;
     // stars
     public static final int STAR_SIZE = 20;
 
@@ -90,10 +93,14 @@ public class Constant {
     public static final int TRY_AGAIN_BUTTON_HEIGHT = 50;
     public static final int NEXT_LEVEL_BUTTON_WIDTH = 255;
     public static final int NEXT_LEVEL_BUTTON_HEIGHT = 50;
+    public static final int RESUME_BUTTON_WIDTH = 255;
+    public static final int RESUME_BUTTON_HEIGHT = 50;
     public static final int SHOW_LEVELS_BUTTON_WIDTH = 123;
     public static final int SHOW_LEVELS_BUTTON_HEIGHT = 47;
     public static final int MENU_BUTTON_WIDTH = 123;
     public static final int MENU_BUTTON_HEIGHT = 47;
+    public static final int RESTART_BUTTON_WIDTH = 123;
+    public static final int RESTART_BUTTON_HEIGHT = 47;
 
     //SOUND
     public static final int BACKGROUND_SOUND = -100;
