@@ -4,9 +4,11 @@ import objects.GameObject;
 import objects.brick.Brick;
 import objects.movable.Ball;
 import objects.movable.Paddle;
+import util.AssetManager;
 import util.Constant;
 import util.SoundManager;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -89,6 +91,58 @@ public class PowerUpManager {
         }
     }
 
+    public void clearAllActivePowerUps() {
+        for (PowerUp p : activePowerUps) {
+            p.bulkRemoveEffect();
+        }
+        activePowerUps.clear();
+    }
+
+    public void renderActiveHUD(Graphics2D g) {
+        if (activePowerUps.isEmpty()) return;
+
+        // Góc trên trái
+        final int paddingLeft = 10;
+        final int paddingTop = 10;
+        final int iconW = Constant.POWERUP_WIDTH;
+        final int iconH = Constant.POWERUP_HEIGHT;
+        final int gap = 6; // khoảng cách giữa các icon theo trục X
+
+        int n = activePowerUps.size();
+        int y = paddingTop; // một hàng ngang
+
+        long now = System.currentTimeMillis();
+        // Sắp theo chiều ngang đẩy sang phải: cũ ở bên phải, mới ở bên trái
+        for (int i = 0; i < n; i++) {
+            PowerUp p = activePowerUps.get(i); // i = 0 là cũ nhất
+            int x = paddingLeft + (n - 1 - i) * (iconW + gap);
+
+            int duration = p.getDuration();
+            long elapsed = now - p.getActivatedTime();
+
+            boolean shouldBlink = duration > 0 && elapsed >= (long) (duration * 0.7f);
+            boolean visibleThisFrame = true;
+            if (shouldBlink) {
+                // Nhấp nháy mỗi 200ms
+                visibleThisFrame = ((now / 200) % 2) == 1;
+            }
+
+            if (visibleThisFrame) {
+                int iconId = getIconIdForType(p.getType());
+                AssetManager.getInstance().draw(g, iconId, x, y, iconW, iconH);
+            }
+        }
+    }
+
+    private int getIconIdForType(PowerUpType type) {
+        return switch (type) {
+            case EXPAND_PADDLE -> Constant.POWERUP_EXPAND_IMG;
+            case FAST_BALL -> Constant.POWERUP_FAST_IMG;
+            case MULTI_BALL -> Constant.POWERUP_MULTIBALL_IMG;
+            case DOUBLE_DAMAGE -> Constant.POWERUP_DOUBLE_DAMAGE_IMG;
+        };
+    }
+
     // Call when a brick is destroyed
     public void maybeSpawnPowerUp(Brick b) {
         if (rng.nextFloat() <= Constant.POWERUP_DROP_RATE) {
@@ -107,3 +161,4 @@ public class PowerUpManager {
                 a.getY() + a.getHeight() > b.getY();
     }
 }
+

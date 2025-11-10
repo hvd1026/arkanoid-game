@@ -69,7 +69,7 @@ public class Constant {
     public static final int LEVEL_TITLE_Y_OFFSET = 100;
 
     // PowerUp config
-    public static final float POWERUP_DROP_RATE = 0.2f; // 20% xác suất rơi
+    public static final float POWERUP_DROP_RATE = 0.5f; // 20% xác suất rơi
     public static final float POWERUP_FALL_SPEED = 120f; // px/s
     public static final int POWERUP_DURATION_MS_EXPAND = 8000;
     public static final int POWERUP_DURATION_MS_FASTBALL = 6000;
