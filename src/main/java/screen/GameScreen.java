@@ -98,6 +98,8 @@ public class GameScreen extends Screen {
         // if no balls left
         if (balls.isEmpty()) {
             star--;
+            // Clear all active power-ups immediately when losing a ball
+            powerUpManager.clearAllActivePowerUps();
             if (star > 0) {
                 respawnSingleBallOnPaddle();
                 ballFollowingPaddle = true;
@@ -138,6 +140,9 @@ public class GameScreen extends Screen {
         g.setFont(AssetManager.getInstance().getDefaultFont());
         g.setColor(Color.WHITE);
         g.drawString(String.format("LEVEL %d", level), 350, 30);
+
+        // draw active power-ups HUD (top-right)
+        powerUpManager.renderActiveHUD(g);
 
 //        g.dispose();
     }

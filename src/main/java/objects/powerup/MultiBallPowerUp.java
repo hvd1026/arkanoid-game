@@ -25,23 +25,28 @@ public class MultiBallPowerUp extends PowerUp {
 
     @Override
     public void bulkApplyEffect(ArrayList<Ball> balls) {
-        Ball base = balls.getFirst(); // lấy quả bóng đầu tiên làm gốc
-        float x = base.getX();
-        float y = base.getY();
-        float speed = (float) Math.sqrt(base.getDx() * base.getDx() + base.getDy() * base.getDy());
-        if (speed == 0) speed = Constant.BALL_SPEED;
-        // góc hiện tại của bóng gốc
-        float baseAngleDeg = (float) Math.toDegrees(Math.atan2(-base.getDy(), base.getDx()));
+        // Nhân bản tất cả bóng hiện có: mỗi bóng sinh thêm 2 bóng theo góc lệch nhỏ
+        ArrayList<Ball> snapshot = new ArrayList<>(balls);
         float spread = Constant.MULTI_BALL_SPREAD_DEG;
-        float angleLeft = baseAngleDeg - spread;
-        float angleRight = baseAngleDeg + spread;
+        for (Ball base : snapshot) {
+            float x = base.getX();
+            float y = base.getY();
+            float dx = base.getDx();
+            float dy = base.getDy();
+            float speed = (float) Math.sqrt(dx * dx + dy * dy);
+            if (speed == 0) speed = Constant.BALL_SPEED;
+            float baseAngleDeg = (float) Math.toDegrees(Math.atan2(-dy, dx));
 
-        Ball b1 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
-                speed * (float) Math.cos(Math.toRadians(angleLeft)), -speed * (float) Math.sin(Math.toRadians(angleLeft)));
-        Ball b2 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
-                speed * (float) Math.cos(Math.toRadians(angleRight)), -speed * (float) Math.sin(Math.toRadians(angleRight)));
-        balls.add(b1);
-        balls.add(b2);
+            float angleLeft = baseAngleDeg - spread;
+            float angleRight = baseAngleDeg + spread;
+
+            Ball b1 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
+                    speed * (float) Math.cos(Math.toRadians(angleLeft)), -speed * (float) Math.sin(Math.toRadians(angleLeft)));
+            Ball b2 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
+                    speed * (float) Math.cos(Math.toRadians(angleRight)), -speed * (float) Math.sin(Math.toRadians(angleRight)));
+            balls.add(b1);
+            balls.add(b2);
+        }
     }
 
     @Override
