@@ -120,9 +120,9 @@ The game uses multiple threads to ensure smooth performance:
 ![Leaderboard](docs/screenshots/level-system.png)
 
 ### Video Demo
-[![Video Demo](docs/screenshots/video-thumbnail.png)](docs/demo/gameplay.webm)
+[![Video Demo](docs/screenshots/video-thumbnail.png)](docs/demo/demo.webm)
 
-*Full gameplay video is available in `docs/demo/gameplay.webm`*
+*Full gameplay video is available in `docs/demo/demo.webm`*
 
 ---
 
