@@ -4,6 +4,7 @@ import objects.ui.button.*;
 import objects.ui.dialog.PauseDialog;
 import util.Constant;
 import util.MouseHandle;
+import util.SoundManager;
 
 import java.awt.*;
 
@@ -62,6 +63,7 @@ public class PauseScreen extends Screen {
                 ScreenManager.getInstance().switchScreen(new GameScreen(level));
             }
         }
+        SoundManager.getInstance().update(deltaTime);
     }
 
     @Override
@@ -75,5 +77,6 @@ public class PauseScreen extends Screen {
         resumeButton.render(g);
         menuButton.render(g);
         restartButton.render(g);
+        SoundManager.getInstance().render(g);
     }
 }

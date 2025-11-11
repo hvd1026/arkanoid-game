@@ -189,6 +189,18 @@ public class AssetManager {
             case Constant.RESTART_BUTTON_IMG:
                 g.drawImage(spriteSheet, x, y, x + width, y + height, 255, 69, 378, 116, null);
                 break;
+            case Constant.AUDIO_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 215, 35, 247, 61, null);
+                break;
+            case Constant.MUSIC_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 184, 34, 211, 62, null);
+                break;
+            case Constant.AUDIO_MUTED_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 249, 35, 281, 61, null);
+                break;
+            case Constant.MUSIC_MUTED_IMG:
+                g.drawImage(spriteSheet, x, y, x + width, y + height, 284, 33, 314, 62, null);
+                break;
             default:
                 System.err.println("Asset not found: " + id);
                 break;

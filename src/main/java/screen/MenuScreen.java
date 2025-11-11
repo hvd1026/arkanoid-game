@@ -73,6 +73,7 @@ public class MenuScreen extends Screen {
         } else {
             MouseHandle.getInstance().changeToDefaultCursor();
         }
+        SoundManager.getInstance().update(deltaTime);
     }
 
     @Override
@@ -81,5 +82,6 @@ public class MenuScreen extends Screen {
         AssetManager.getInstance().draw(g, Constant.LOGO_IMG, (SCREEN_WIDTH - 670) / 2, 60, 500, 156);
         startButton.render(g);
         exitButton.render(g);
+        SoundManager.getInstance().render(g);
     }
 }
