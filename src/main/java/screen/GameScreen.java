@@ -19,6 +19,7 @@ public class GameScreen extends Screen {
     private final ArrayList<Brick> bricks;
     private final ArrayList<Brick> brickLine;
     private final PowerUpManager powerUpManager;
+    private boolean showGameGuide = true;
 
     public GameScreen(int level) {
         paddle = new Paddle((Constant.SCREEN_WIDTH - Constant.PADDLE_WIDTH) / 2f,
@@ -48,6 +49,11 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(double deltaTime) {
+        // remove game guide on any key press
+        if (showGameGuide && KeyHandle.getInstance().spacePressed || KeyHandle.getInstance().leftPressed || KeyHandle.getInstance().rightPressed || KeyHandle.getInstance().escPressed) {
+            showGameGuide = false;
+        }
+
         // pause game
         if (KeyHandle.getInstance().escPressed) {
             ScreenManager.getInstance().switchScreen(new PauseScreen(this));
@@ -135,6 +141,14 @@ public class GameScreen extends Screen {
                     Constant.STAR_SIZE,
                     Constant.STAR_SIZE);
         }
+        // render game guide
+        if (showGameGuide){
+            // blink effect
+            long now = System.currentTimeMillis() / 250; //
+            if (now % 2 == 1)
+                AssetManager.getInstance().drawGameGuide(g, 200, 200, 400, 400);
+        }
+
 
         // draw level text
         g.setFont(AssetManager.getInstance().getDefaultFont());
