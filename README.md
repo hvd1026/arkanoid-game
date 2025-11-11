@@ -44,7 +44,7 @@ The game showcases the application of key OOP principles — including **encapsu
 
 
 ### 1. Singleton Pattern
-**Used in:** `SoungManager`, `AssetManager`
+**Used in:** `SoungManager`, `AssetManager`, `KeyHandle`, `MouseHandle`
 
 **Purpose:** Ensure only one instance exists throughout the application.
 ### 2. Factory Method
