@@ -1,5 +1,9 @@
 package util;
 
+import objects.ui.button.AudioButton;
+import objects.ui.button.Button;
+import objects.ui.button.MusicButton;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,6 +16,8 @@ public class SoundManager {
     private static SoundManager instance = null;
     private boolean musicMuted = false;
     private boolean audioMuted = false;
+    private Button audioButton;
+    private Button musicButton;
 
     // Clip
     private Clip backgroundMusic;
@@ -23,6 +29,8 @@ public class SoundManager {
 
     private SoundManager() {
         audioPool = Executors.newFixedThreadPool(6); // Thread pool for audio playback
+        audioButton = new AudioButton(40, 10, 24, 24);
+        musicButton = new MusicButton(80, 10, 24, 24);
     }
 
     public static SoundManager getInstance() {
@@ -30,6 +38,16 @@ public class SoundManager {
             instance = new SoundManager();
         }
         return instance;
+    }
+
+    public void update(double deltaTime) {
+        audioButton.update(deltaTime);
+        musicButton.update(deltaTime);
+    }
+
+    public void render(java.awt.Graphics2D g) {
+        audioButton.render(g);
+        musicButton.render(g);
     }
 
     public void loadAll() {
@@ -50,6 +68,34 @@ public class SoundManager {
                 backgroundMusic.close();
             }
         }
+    }
+
+    // mute and unmute
+    public boolean isAudioMuted() {
+        return audioMuted;
+    }
+
+    public boolean isMusicMuted() {
+        return musicMuted;
+    }
+
+    public void muteMusic() {
+        musicMuted = true;
+        stopBackgroundMusic();
+    }
+
+    public void unmuteMusic() {
+        musicMuted = false;
+        playBackgroundMusic();
+    }
+
+    public void muteAudio() {
+        audioMuted = true;
+        stopAllAudio();
+    }
+
+    public void unmuteAudio() {
+        audioMuted = false;
     }
 
     // Background music

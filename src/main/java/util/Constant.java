@@ -53,6 +53,10 @@ public class Constant {
     public static final int PAUSE_DIALOG_IMG = 20;
     public static final int RESUME_BUTTON_IMG = 21;
     public static final int RESTART_BUTTON_IMG = 22;
+    public static final int AUDIO_IMG = 23;
+    public static final int MUSIC_IMG = 24;
+    public static final int AUDIO_MUTED_IMG = 25;
+    public static final int MUSIC_MUTED_IMG = 26;
     // stars
     public static final int STAR_SIZE = 20;
 
