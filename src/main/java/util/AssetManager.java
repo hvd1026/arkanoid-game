@@ -16,6 +16,7 @@ public class AssetManager {
     private BufferedImage spriteSheet;
     private BufferedImage backgroundImage;
     private BufferedImage logo;
+    private BufferedImage gameGuideImage;
     private static AssetManager instance = null;
     public Font deffaultFont;
 
@@ -24,6 +25,7 @@ public class AssetManager {
         loadSpriteSheet();
         loadBackgroundImage();
         loadLogo();
+        loadGameGuideImage();
     }
 
     public static AssetManager getInstance() {
@@ -69,6 +71,18 @@ public class AssetManager {
         }
     }
 
+    private void loadGameGuideImage() {
+        try {
+            gameGuideImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/guide.png")));
+        } catch (IOException e) {
+            System.err.println("Can't load game guide image");
+            e.printStackTrace();
+        }
+    }
+
+    public void drawGameGuide(Graphics2D g, int x, int y, int width, int height) {
+        g.drawImage(gameGuideImage, x, y, x + width, y + height, 0, 0, gameGuideImage.getWidth(), gameGuideImage.getHeight(), null);
+    }
 
     /**
      * Draws image from sprite sheet to screen based on id.
