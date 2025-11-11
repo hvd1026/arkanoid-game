@@ -9,8 +9,11 @@ import java.awt.*;
 
 import static util.Constant.POWERUP_DOUBLE_DAMAGE_IMG;
 
+/**
+ * DoubleDamagePowerUp represents a power-up that allows balls to break strong bricks.
+ */
+
 public class DoubleDamagePowerUp extends PowerUp {
-    private boolean previousCanBreakStrong;
 
     public DoubleDamagePowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -22,19 +25,22 @@ public class DoubleDamagePowerUp extends PowerUp {
     public void render(Graphics2D g) {
         AssetManager.getInstance().draw(g, POWERUP_DOUBLE_DAMAGE_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
     }
-
+    // When applied, set the ball's ability to break strong bricks to true
     @Override
     public void applyEffect(GameObject o) {
-        if (!(o instanceof Ball ball)) return;
+        if (!(o instanceof Ball ball)) {
+            return;
+        }
         addAppliedTo(ball);
-        previousCanBreakStrong = ball.isCanBreakStrongBrick();
         ball.setCanBreakStrongBrick(true);
     }
 
     @Override
     public void removeEffect(GameObject o) {
-        if (!(o instanceof Ball ball)) return;
-        ball.setCanBreakStrongBrick(previousCanBreakStrong);
+        if (!(o instanceof Ball ball)) {
+            return;
+        }
+        ball.setCanBreakStrongBrick(false);
     }
 }
 

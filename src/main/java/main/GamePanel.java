@@ -1,9 +1,7 @@
 package main;
 
-import screen.LossScreen;
 import screen.MenuScreen;
 import screen.ScreenManager;
-import screen.WinScreen;
 import util.AssetManager;
 import util.Constant;
 import util.MouseHandle;
@@ -50,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Update game objects
+     * Update screen and game objects
      *
      * @param deltaTime time elapsed since last update (seconds)
      */
@@ -59,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Render game objects
+     * Render screen and game objects
      *
      * @param g Graphics object
      */

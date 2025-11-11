@@ -5,6 +5,10 @@ import util.Constant;
 
 import java.awt.*;
 
+/**
+ * PauseDialog class represents the dialog shown when the game is paused.
+ */
+
 public class PauseDialog extends Dialog {
     public PauseDialog(int x, int y, int width, int height) {
         super(x, y, width, height);

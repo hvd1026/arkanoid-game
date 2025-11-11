@@ -2,8 +2,13 @@ package objects.brick;
 
 import objects.GameObject;
 
+/**
+ * Abstract Brick class representing a brick in the game.
+ * It defines properties and methods related to brick behavior.
+ */
+
 public abstract class Brick extends GameObject {
-    private int hitPoints;// so lan cham de gach bi pha huy.
+    private int hitPoints; // Number of hits the brick can take before being destroyed.
 
     public Brick(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -17,15 +22,12 @@ public abstract class Brick extends GameObject {
         this.hitPoints = hitPoints;
     }
 
-    // do ben cua gach sau khi cham bong.
+    // takeHit method to reduce hit points when the brick is hit.
     public abstract void takeHit(int damage);
 
-    // ham kiem tra gach bi pha.
+    // isDestroyed method to check if the brick is destroyed.
     public boolean isDestroyed() {
-        if (hitPoints <= 0) {
-            return true;
-        }
-        return false;
+        return hitPoints <= 0;
     }
 
 

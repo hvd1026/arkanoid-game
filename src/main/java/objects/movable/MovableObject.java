@@ -2,6 +2,11 @@ package objects.movable;
 
 import objects.GameObject;
 
+/**
+ * Abstract MovableObject class represents a game object that can move.
+ * It extends the GameObject class and adds velocity properties and movement behavior.
+ */
+
 public abstract class MovableObject extends GameObject {
     float dx, dy; // velocity in x and y directions
 

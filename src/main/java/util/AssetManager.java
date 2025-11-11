@@ -50,7 +50,16 @@ public class AssetManager {
 
     public void drawBackground(Graphics2D g) {
         // draw background at (0,0) with size of screen, crop image to fit screen size
-        g.drawImage(backgroundImage, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, 0, 0, Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT, null);
+        g.drawImage(backgroundImage,
+                0,
+                0,
+                Constant.SCREEN_WIDTH,
+                Constant.SCREEN_HEIGHT,
+                0,
+                0,
+                Constant.SCREEN_WIDTH,
+                Constant.SCREEN_HEIGHT,
+                null);
     }
 
     private void loadSpriteSheet() {

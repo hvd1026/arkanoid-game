@@ -4,8 +4,12 @@ import objects.GameObject;
 import objects.movable.Ball;
 import util.Constant;
 
-import java.awt.*;
 import java.util.ArrayList;
+
+/**
+ * Abstract class representing a PowerUp in the game.
+ * PowerUps can be applied to GameObjects and have effects that last for a certain duration.
+ */
 
 public abstract class PowerUp extends GameObject {
     private PowerUpType type;
@@ -31,14 +35,6 @@ public abstract class PowerUp extends GameObject {
 
     public long getActivatedTime() {
         return activatedTime;
-    }
-
-    public boolean isActivated() {
-        return isActivated;
-    }
-
-    public ArrayList<GameObject> getAppliedTo() {
-        return appliedTo;
     }
 
     public void setType(PowerUpType type) {

@@ -1,5 +1,10 @@
 package objects.ui.dialog;
 
+/**
+ * Abstract Dialog class represents a UI dialog component.
+ * It defines the basic properties and methods that all dialog types must implement.
+ */
+
 public abstract class Dialog {
     protected int x, y, width, height;
 

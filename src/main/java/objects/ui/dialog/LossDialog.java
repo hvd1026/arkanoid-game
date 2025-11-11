@@ -5,6 +5,10 @@ import util.Constant;
 
 import java.awt.*;
 
+/**
+ * LossDialog class represents the dialog shown when the player loses the game.
+ */
+
 public class LossDialog extends Dialog {
     public LossDialog(int x, int y, int width, int height) {
         super(x, y, width, height);

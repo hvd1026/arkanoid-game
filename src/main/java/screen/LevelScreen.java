@@ -16,11 +16,16 @@ import java.io.IOException;
 
 import static util.Constant.*;
 
+/**
+ * LevelScreen class represents the level selection screen in the game.
+ * It allows players to select levels to play.
+ * Extends the abstract Screen class.
+ */
+
 public class LevelScreen extends Screen {
     private LevelData levelData;
-    private int[] levels;
     private LevelButton[] levelButtons;
-    private Font font = new Font("Arial", Font.BOLD, 30);
+    private final Font font = new Font("Arial", Font.BOLD, 30);
 
     public LevelScreen() {
         levelData = new LevelData(); // Initialize with default or empty LevelData
@@ -32,8 +37,6 @@ public class LevelScreen extends Screen {
     private void loadLevelData() {
         String filePath = "src/main/resources/maps/level.data"; // Relative path from project root
         File levelFile = new File(filePath);
-
-
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(levelFile));
             levelData = (LevelData) ois.readObject();
@@ -43,14 +46,11 @@ public class LevelScreen extends Screen {
             levelData = new LevelData(); // Re-initialize if loading failed
             saveLevelData();
         }
-        levels = levelData.getLevels();
+        int[] levels = levelData.getLevels();
         levelButtons = new LevelButton[TOTAL_LEVELS + 1];
         for (int i = 1; i <= LEVEL_ROWS; i++) {
             for (int j = 1; j <= LEVEL_COLS; j++) {
                 int levelIndex = (i - 1) * LEVEL_COLS + j;
-                if (levelIndex > TOTAL_LEVELS) {
-                    break;
-                }
                 int x = PADDING_X_LEFT + (j - 1) * (LEVEL_BUTTON_WIDTH + PADDING_X_BETWEEN);
                 int y = PADDING_Y_TOP + (i - 1) * (LEVEL_BUTTON_HEIGHT + PADDING_Y_BETWEEN);
                 levelButtons[levelIndex] = new LevelButton(x, y, LEVEL_BUTTON_WIDTH, LEVEL_BUTTON_HEIGHT, levelIndex, levels[levelIndex]);
@@ -61,12 +61,13 @@ public class LevelScreen extends Screen {
     private void saveLevelData() {
         String filePath = "src/main/resources/maps/level.data";
         File levelFile = new File(filePath);
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(levelFile));
-            oos.writeObject(levelData);
-        } catch (IOException e) {
-            System.err.println("Error saving level data: " + e.getMessage());
-        }
+        new Thread(() -> {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(levelFile))) {
+                oos.writeObject(levelData);
+            } catch (IOException e) {
+                System.err.println("Error saving level data: " + e.getMessage());
+            }
+        }).start();
     }
 
     @Override
@@ -79,9 +80,8 @@ public class LevelScreen extends Screen {
                 isHoverSomeButton = true;
             }
 
-            // click
+            // click check
             if (MouseHandle.getInstance().isClickOn(levelButtons[i])) {
-                System.out.println("Level " + i + " Button Clicked!");
                 MouseHandle.getInstance().changeToDefaultCursor();
                 ScreenManager.getInstance().switchScreen(new GameScreen(i));
                 return;

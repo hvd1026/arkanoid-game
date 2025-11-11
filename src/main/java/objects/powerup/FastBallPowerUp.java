@@ -9,8 +9,11 @@ import java.awt.*;
 
 import static util.Constant.POWERUP_FAST_IMG;
 
+/**
+ * FastBallPowerUp increases the speed of the ball when applied.
+ */
+
 public class FastBallPowerUp extends PowerUp {
-    public static final float SPEED_SCALE = 1.4f;
 
     public FastBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -34,14 +37,14 @@ public class FastBallPowerUp extends PowerUp {
     public void applyEffect(GameObject o) {
         if (!(o instanceof Ball ball)) return;
         addAppliedTo(ball);
-        ball.setDx(ball.getDx() * SPEED_SCALE);
-        ball.setDy(ball.getDy() * SPEED_SCALE);
+        ball.setDx(ball.getDx() * Constant.SPEED_SCALE);
+        ball.setDy(ball.getDy() * Constant.SPEED_SCALE);
     }
 
     @Override
     public void removeEffect(GameObject o) {
         if (!(o instanceof Ball ball)) return;
-        float inv = 1.0f / SPEED_SCALE;
+        float inv = 1.0f / Constant.SPEED_SCALE;
         ball.setDx(ball.getDx() * inv);
         ball.setDy(ball.getDy() * inv);
     }

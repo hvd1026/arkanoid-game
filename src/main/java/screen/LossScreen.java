@@ -13,6 +13,12 @@ import java.awt.*;
 
 import static util.Constant.SCREEN_WIDTH;
 
+/**
+ * LossScreen class represents the screen displayed when the player loses the game.
+ * It provides options to try again, show levels, or return to the menu.
+ * Extends the abstract Screen class.
+ */
+
 public class LossScreen extends Screen {
     private final int level;
     private final TryAgainButton tryAgainButton;
@@ -53,12 +59,9 @@ public class LossScreen extends Screen {
     @Override
     public void update(double deltaTime) {
         // check hover on buttons
-        boolean isHoverOnSomeButton = false;
-        if (MouseHandle.getInstance().isHoverOn(menuButton)
+        boolean isHoverOnSomeButton = MouseHandle.getInstance().isHoverOn(menuButton)
                 || MouseHandle.getInstance().isHoverOn(showLevelsButton)
-                || MouseHandle.getInstance().isHoverOn(tryAgainButton)) {
-            isHoverOnSomeButton = true;
-        }
+                || MouseHandle.getInstance().isHoverOn(tryAgainButton);
 
         // change cursor type
         if (isHoverOnSomeButton) {

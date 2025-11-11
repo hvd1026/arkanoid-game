@@ -10,6 +10,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * GameScreen class represents the main gameplay screen.
+ * It handles the game logic, rendering, and user interactions during gameplay.
+ */
+
 public class GameScreen extends Screen {
     private final Paddle paddle;
     private final ArrayList<Ball> balls = new ArrayList<>();
@@ -50,7 +55,10 @@ public class GameScreen extends Screen {
     @Override
     public void update(double deltaTime) {
         // remove game guide on any key press
-        if (showGameGuide && KeyHandle.getInstance().spacePressed || KeyHandle.getInstance().leftPressed || KeyHandle.getInstance().rightPressed || KeyHandle.getInstance().escPressed) {
+        if (showGameGuide && KeyHandle.getInstance().spacePressed
+                || KeyHandle.getInstance().leftPressed
+                || KeyHandle.getInstance().rightPressed
+                || KeyHandle.getInstance().escPressed) {
             showGameGuide = false;
         }
 
@@ -102,7 +110,7 @@ public class GameScreen extends Screen {
         powerUpManager.updateFallingPowerUps(deltaTime, ballFollowingPaddle);
 
         // update active power-ups
-        powerUpManager.updateActivePowerUps(deltaTime);
+        powerUpManager.updateActivePowerUps();
 
         // if no balls left
         if (balls.isEmpty()) {

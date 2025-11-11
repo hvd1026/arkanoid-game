@@ -5,6 +5,10 @@ import util.Constant;
 
 import java.awt.*;
 
+/**
+ * WinDialog class represents the dialog shown when the player win the game.
+ */
+
 public class WinDialog extends Dialog {
     public WinDialog(int x, int y, int width, int height) {
         super(x, y, width, height);

@@ -16,7 +16,8 @@ import static util.Constant.SCREEN_WIDTH;
 
 /**
  * MenuScreen class is the main menu screen of the application.
- * Contains a start button that allows users to begin the game.
+ * Contains a start button and an exit button that allows users to begin and quit the game.
+ * Extends the abstract Screen class.
  */
 public class MenuScreen extends Screen {
     private final Button startButton;
@@ -24,14 +25,12 @@ public class MenuScreen extends Screen {
 
     public MenuScreen() {
         // Create a temporary image to get FontMetrics
-
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = img.createGraphics();
         g2d.setFont(AssetManager.getInstance().getDefaultFont());
         FontMetrics fm = g2d.getFontMetrics();
 
         // Calculate button size and position of the start button
-
         int startButtonWidth = fm.stringWidth("START");
         int startButtonHeight = fm.getHeight();
         int startButtonX = (SCREEN_WIDTH - startButtonWidth) / 2; // Centered horizontally
@@ -39,11 +38,10 @@ public class MenuScreen extends Screen {
         startButton = new StartButton(startButtonX, startButtonY, startButtonWidth, startButtonHeight);
 
         // Calculate button size and position of the exit button
-
         int exitButtonWidth = fm.stringWidth("EXIT");
         int exitButtonHeight = fm.getHeight();
         int exitButtonX = (SCREEN_WIDTH - exitButtonWidth) / 2; // Centered horizontally
-        int exitButtonY = ((SCREEN_HEIGHT - exitButtonHeight) / 2) + 50; // Centered vertically
+        int exitButtonY = ((SCREEN_HEIGHT - exitButtonHeight) / 2) + 50; // 50 pixels below the start button
         exitButton = new ExitButton(exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight);
 
         // set volume of background music
@@ -63,11 +61,11 @@ public class MenuScreen extends Screen {
         // Check mouse click on exit button
         if (MouseHandle.getInstance().isClickOn(exitButton)) {
             MouseHandle.getInstance().changeToDefaultCursor();
-            System.exit(0); // Thoát chương trình
+            System.exit(0); // Exit the application
             return;
         }
 
-        // Change cursor type based on hover state
+        // Change cursor type based on hover
         if (MouseHandle.getInstance().isHoverOn(exitButton) || MouseHandle.getInstance().isHoverOn(startButton)) {
             MouseHandle.getInstance().changeToHandCursor();
         } else {

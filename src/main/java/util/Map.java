@@ -10,9 +10,13 @@ import objects.brick.BrickFactory;
 
 import java.util.ArrayList;
 
+/**
+ * Map class represents the game map loaded from a file, containing bricks arranged in rows and columns.
+ */
+
 public class Map {
-    private int[][] map;
-    private ArrayList<Brick> bricks;
+    private final int[][] map;
+    private final ArrayList<Brick> bricks;
 
     public int mapLevel;
 

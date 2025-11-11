@@ -6,6 +6,11 @@ import util.KeyHandle;
 
 import java.awt.*;
 
+/**
+ * Paddle class represents the player's paddle in the game.
+ * It can move left and right based on user input.
+ */
+
 public class Paddle extends MovableObject {
     public Paddle(float x, float y, int width, int height) {
         super(x, y, width, height, 0, 0);
@@ -26,15 +31,15 @@ public class Paddle extends MovableObject {
 
     @Override
     public void render(Graphics2D g) {
-//        g.setColor(Color.RED);
-//        g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
-        AssetManager.getInstance().draw(g, Constant.PADDLE_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
-
-
+        AssetManager.getInstance().draw(g, Constant.PADDLE_IMG,
+                (int) getX(),
+                (int) getY(),
+                getWidth(),
+                getHeight());
     }
 
     public void moveLeft() {
-        if (getX() <= 0) { // cham ben trai
+        if (getX() <= 0) { // reach left edge
             setDx(0);
             return;
         }
@@ -42,7 +47,7 @@ public class Paddle extends MovableObject {
     }
 
     public void moveRight() {
-        if (getX() + getWidth() >= Constant.SCREEN_WIDTH) { // cham ben phai
+        if (getX() + getWidth() >= Constant.SCREEN_WIDTH) { // reach right edge
             setDx(0);
             return;
         }

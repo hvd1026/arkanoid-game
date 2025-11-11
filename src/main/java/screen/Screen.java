@@ -2,8 +2,12 @@ package screen;
 
 import java.awt.*;
 
+/**
+ * Abstract class representing a screen in the game.
+ * Each screen must implement update and render methods.
+ */
+
 public abstract class Screen {
-    public boolean isActive = true;
 
     public abstract void update(double deltaTime);
 

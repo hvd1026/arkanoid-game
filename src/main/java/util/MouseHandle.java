@@ -7,6 +7,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * MouseHandle class manages mouse interactions within the application.
+ * It tracks mouse position and provides methods to check
+ * for hover and click events on button.
+ * Implements MouseListener and MouseMotionListener interfaces.
+ */
+
 public class MouseHandle implements MouseListener, MouseMotionListener {
     private Point mousePos;
     private static MouseHandle instance;
