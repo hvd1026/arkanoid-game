@@ -3,6 +3,10 @@ package util;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * KeyHandle class implements KeyListener to track the state of specific keys.
+ * It uses the Singleton pattern to ensure only one instance exists.
+ */
 
 public class KeyHandle implements KeyListener {
     private static KeyHandle instance;

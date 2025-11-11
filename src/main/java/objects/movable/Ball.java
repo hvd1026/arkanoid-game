@@ -8,8 +8,11 @@ import util.SoundManager;
 
 import java.awt.*;
 
+/**
+ * Ball represents the ball object in the game that moves and interacts with paddles and bricks.
+ */
+
 public class Ball extends MovableObject {
-    private int damage = 1;
     private boolean canBreakStrongBrick = false;
 
     public Ball(float x, float y, int weight, int height, float dx, float dy) {
@@ -21,7 +24,6 @@ public class Ball extends MovableObject {
     public void update(double deltaTime) {
         // check wall collision
         checkWallCollision();
-
         // update position
         move(deltaTime);
     }
@@ -32,22 +34,21 @@ public class Ball extends MovableObject {
     }
 
     public void bounceOff(Object other) {
-        // toa do, tam ball
+        // coordinates and radius of ball
         float centerX = getX() + getWidth() / 2f;
         float centerY = getY() + getHeight() / 2f;
         float radius = getWidth() / 2f;
 
-        if (other instanceof Paddle) {
-            Paddle paddle = (Paddle) other;
-            if (centerY < paddle.getY()) { // va cham tren
+        if (other instanceof Paddle paddle) {
+            if (centerY < paddle.getY()) { // top paddle
                 float currentSpeed = (float) Math.sqrt(getDx() * getDx() + getDy() * getDy());
-                // goc phan xa
+                // reflect ball based on where it hits the paddle
                 float paddleMiddle = paddle.getX() + paddle.getWidth() / 2f;
                 float deltaX = centerX - paddleMiddle;
-                float ratio = deltaX / (paddle.getWidth() / 2f); // ti le khoang cach
-                float bounceAngle = ratio * Constant.BALL_MAX_ANGLE; // goc phan xa ( so voi truc y)
+                float ratio = deltaX / (paddle.getWidth() / 2f); // rate between -1 and 1
+                float bounceAngle = ratio * Constant.BALL_MAX_ANGLE; // reflect angle
 
-                // cap nhat van toc
+                // set new velocity
                 setDx(currentSpeed * (float) Math.sin(Math.toRadians(bounceAngle)));
                 setDy(-currentSpeed * (float) Math.cos(Math.toRadians(bounceAngle)));
             }
@@ -68,58 +69,59 @@ public class Ball extends MovableObject {
             }
         }
 
-        // brick
-        if (other instanceof Brick) {
-            Brick brick = (Brick) other;
+        // brick bounce
+        if (other instanceof Brick brick) {
             // top brick
             if (centerY < brick.getY()) {
                 setY(brick.getY() - radius * 2);
-                setDy(-getDy());
+                if (getDy() > 0)
+                    setDy(-getDy());
             }
             // bottom brick
             else if (centerY > brick.getY() + brick.getHeight()) {
                 setY(brick.getY() + brick.getHeight());
-                setDy(-getDy());
+                if (getDy() < 0)
+                    setDy(-getDy());
             }
             // left brick
             else if (centerX < brick.getX()) {
                 setX(brick.getX() - radius * 2);
-                setDx(-getDx());
+                if (getDx() > 0)
+                    setDx(-getDx());
             }
             // right brick
             else if (centerX > brick.getX() + brick.getWidth()) {
                 setX(brick.getX() + brick.getWidth());
-                setDx(-getDx());
+                if (getDx() < 0)
+                    setDx(-getDx());
             }
-
         }
     }
 
     public void checkCollision(Object other) {
-        // toa do, tam ball
+        // coordinates and radius of ball
         float centerX = getX() + getWidth() / 2f;
         float centerY = getY() + getHeight() / 2f;
         float radius = getWidth() / 2f;
 
-        // paddle
-        if (other instanceof Paddle) {
-            Paddle paddle = (Paddle) other;
-            // diem gan ball nhat tren paddle
+        // check paddle collision
+        if (other instanceof Paddle paddle) {
+            // closest point on paddle to ball center
             float closestX = Math.max(paddle.getX(), Math.min(centerX, paddle.getX() + paddle.getWidth()));
             float closestY = Math.max(paddle.getY(), Math.min(centerY, paddle.getY() + paddle.getHeight()));
 
-            // kcach
+            // distance from ball center to closest point
             float deltaX = centerX - closestX;
             float deltaY = centerY - closestY;
-            if (deltaX * deltaX + deltaY * deltaY < radius * radius) { // va cham vi khoang cach < r
+            if (deltaX * deltaX + deltaY * deltaY < radius * radius) {
+                // collision detected
                 SoundManager.getInstance().playAudio("paddle");
                 bounceOff(paddle);
             }
         }
 
-        // brick
-        if (other instanceof Brick) {
-            Brick brick = (Brick) other;
+        // check brick collision
+        if (other instanceof Brick brick) {
             float closestX = Math.max(brick.getX(), Math.min(centerX, brick.getX() + brick.getWidth()));
             float closestY = Math.max(brick.getY(), Math.min(centerY, brick.getY() + brick.getHeight()));
             float deltaX = centerX - closestX;
@@ -136,26 +138,33 @@ public class Ball extends MovableObject {
     }
 
     void checkWallCollision() {
-        if (getX() <= 0) { // left
+        if (getX() <= 0) {
+            // left wall
             setX(0);
-            setDx(-getDx());
-        } else if (getX() + getWidth() >= Constant.SCREEN_WIDTH) { // right
+            if (getDx() < 0) {
+                setDx(-getDx());
+                SoundManager.getInstance().playAudio("strong_brick");
+            }
+        } else if (getX() + getWidth() >= Constant.SCREEN_WIDTH) {
+            // right wall
             setX(Constant.SCREEN_WIDTH - getWidth());
-            setDx(-getDx());
+            if (getDx() > 0) {
+                setDx(-getDx());
+                SoundManager.getInstance().playAudio("strong_brick");
+            }
         }
-        if (getY() <= Constant.GAME_Y_OFFSET) { // top
+        if (getY() <= Constant.GAME_Y_OFFSET) {
+            // top wall
             setY(Constant.GAME_Y_OFFSET);
-            setDy(-getDy());
-            SoundManager.getInstance().playAudio("strong_brick");
+            if (getDy() < 0) {
+                setDy(-getDy());
+                SoundManager.getInstance().playAudio("strong_brick");
+            }
         }
     }
 
     public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = Math.max(1, damage);
+        return 1;
     }
 
     public boolean isCanBreakStrongBrick() {

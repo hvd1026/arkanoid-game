@@ -2,6 +2,11 @@ package objects;
 
 import java.awt.*;
 
+/**
+ * Abstract GameObject class represents a generic object in the game.
+ * It defines the basic properties and methods that all game objects must implement.
+ */
+
 public abstract class GameObject {
     private float x, y;
     private int width, height;

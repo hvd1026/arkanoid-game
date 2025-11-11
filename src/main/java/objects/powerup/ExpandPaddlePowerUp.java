@@ -9,6 +9,10 @@ import java.awt.*;
 
 import static util.Constant.POWERUP_EXPAND_IMG;
 
+/**
+ * ExpandPaddlePowerUp represents a power-up that expands the width of the paddle when applied.
+ */
+
 public class ExpandPaddlePowerUp extends PowerUp {
     public ExpandPaddlePowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -25,20 +29,27 @@ public class ExpandPaddlePowerUp extends PowerUp {
 
     @Override
     public void render(Graphics2D g) {
-        AssetManager.getInstance().draw(g, POWERUP_EXPAND_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g, POWERUP_EXPAND_IMG,
+                (int) getX(),
+                (int) getY(),
+                getWidth(),
+                getHeight());
     }
 
     @Override
     public void applyEffect(GameObject o) {
-        if (!(o instanceof Paddle paddle)) return;
+        if (!(o instanceof Paddle paddle)) {
+            return;
+        }
         addAppliedTo(paddle);
         int newWidth = (int) (paddle.getWidth() * 1.5f);
-        // clamp trong màn hình
+        // Not exceed screen width
         newWidth = Math.min(newWidth, Constant.SCREEN_WIDTH);
         int delta = newWidth - paddle.getWidth();
         paddle.setWidth(newWidth);
-        // cố gắng giữ tâm gần như cũ
-        paddle.setX(Math.max(0, Math.min(paddle.getX() - delta / 2f, Constant.SCREEN_WIDTH - paddle.getWidth())));
+        // Center the paddle after expanding
+        paddle.setX(Math.max(0, Math.min(paddle.getX() - delta / 2f,
+                    Constant.SCREEN_WIDTH - paddle.getWidth())));
     }
 
     @Override
@@ -47,6 +58,7 @@ public class ExpandPaddlePowerUp extends PowerUp {
         int original = Constant.PADDLE_WIDTH;
         int delta = paddle.getWidth() - original;
         paddle.setWidth(original);
-        paddle.setX(Math.max(0, Math.min(paddle.getX() + delta / 2f, Constant.SCREEN_WIDTH - paddle.getWidth())));
+        paddle.setX(Math.max(0, Math.min(paddle.getX() + delta / 2f,
+                    Constant.SCREEN_WIDTH - paddle.getWidth())));
     }
 }

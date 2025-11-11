@@ -3,10 +3,17 @@ package screen;
 import objects.ui.button.*;
 import objects.ui.dialog.PauseDialog;
 import util.Constant;
+import util.KeyHandle;
 import util.MouseHandle;
 import util.SoundManager;
 
 import java.awt.*;
+
+/**
+ * PauseScreen class represents the screen displayed when the game is paused.
+ * It provides options to resume the game, return to the menu, or restart the level.
+ * Extends the abstract Screen class.
+ */
 
 public class PauseScreen extends Screen {
     Screen previousScreen;
@@ -14,7 +21,6 @@ public class PauseScreen extends Screen {
     private final ResumeButton resumeButton;
     private final MenuButton menuButton;
     private final RestartButton restartButton;
-
 
     public PauseScreen(Screen previousScreen) {
         this.previousScreen = previousScreen;
@@ -45,6 +51,14 @@ public class PauseScreen extends Screen {
 
     @Override
     public void update(double deltaTime) {
+        // Resume game on space, left, or right key press
+        if (KeyHandle.getInstance().spacePressed
+                || KeyHandle.getInstance().leftPressed
+                || KeyHandle.getInstance().rightPressed) {
+            ScreenManager.getInstance().switchScreen(previousScreen);
+            return;
+        }
+        // Handle mouse hover and clicks on buttons
         if (MouseHandle.getInstance().isHoverOn(menuButton)
                 || MouseHandle.getInstance().isHoverOn(restartButton)
                 || MouseHandle.getInstance().isHoverOn(resumeButton)) {
@@ -52,7 +66,7 @@ public class PauseScreen extends Screen {
         } else {
             MouseHandle.getInstance().changeToDefaultCursor();
         }
-
+        // Check mouse clicks on buttons
         if (MouseHandle.getInstance().isClickOn(resumeButton)) {
             ScreenManager.getInstance().switchScreen(previousScreen);
         } else if (MouseHandle.getInstance().isClickOn(menuButton)) {

@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * PowerUpManager class handles the spawning, updating, rendering,
+ * and expiration of power-ups in the game.
+ */
+
 public class PowerUpManager {
     private final Paddle paddle;
     private final ArrayList<Ball> balls;
@@ -67,7 +72,7 @@ public class PowerUpManager {
         }
     }
 
-    public void updateActivePowerUps(double deltaTime) {
+    public void updateActivePowerUps() {
         // sync power up effects with current balls
         for (PowerUp p : activePowerUps) {
             p.syncEffect(balls);
@@ -101,20 +106,19 @@ public class PowerUpManager {
     public void renderActiveHUD(Graphics2D g) {
         if (activePowerUps.isEmpty()) return;
 
-        // Góc trên trái
+        // Top-left corner
         final int paddingLeft = 10;
         final int paddingTop = 10;
         final int iconW = Constant.POWERUP_WIDTH;
         final int iconH = Constant.POWERUP_HEIGHT;
-        final int gap = 6; // khoảng cách giữa các icon theo trục X
+        final int gap = 6; // Distance between icons
 
         int n = activePowerUps.size();
-        int y = paddingTop; // một hàng ngang
 
         long now = System.currentTimeMillis();
-        // Sắp theo chiều ngang đẩy sang phải: cũ ở bên phải, mới ở bên trái
+        // Arrange icons from right to left
         for (int i = 0; i < n; i++) {
-            PowerUp p = activePowerUps.get(i); // i = 0 là cũ nhất
+            PowerUp p = activePowerUps.get(i);
             int x = paddingLeft + (n - 1 - i) * (iconW + gap);
 
             int duration = p.getDuration();
@@ -123,13 +127,13 @@ public class PowerUpManager {
             boolean shouldBlink = duration > 0 && elapsed >= (long) (duration * 0.7f);
             boolean visibleThisFrame = true;
             if (shouldBlink) {
-                // Nhấp nháy mỗi 200ms
+                // Blinking effect: toggle visibility every 200 ms
                 visibleThisFrame = ((now / 200) % 2) == 1;
             }
 
             if (visibleThisFrame) {
                 int iconId = getIconIdForType(p.getType());
-                AssetManager.getInstance().draw(g, iconId, x, y, iconW, iconH);
+                AssetManager.getInstance().draw(g, iconId, x, paddingTop, iconW, iconH);
             }
         }
     }

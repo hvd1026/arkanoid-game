@@ -3,6 +3,7 @@ package util;
 import objects.ui.button.AudioButton;
 import objects.ui.button.Button;
 import objects.ui.button.MusicButton;
+import java.io.FileReader;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -11,13 +12,19 @@ import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.util.concurrent.*;
 
+/**
+ * SoundManager class handles background music and sound effects for the game.
+ * It supports loading, playing, muting, and volume control of audio assets.
+ * Implements the singleton pattern to ensure a single instance throughout the application.
+ */
+
 public class SoundManager {
 
     private static SoundManager instance = null;
     private boolean musicMuted = false;
     private boolean audioMuted = false;
-    private Button audioButton;
-    private Button musicButton;
+    private final Button audioButton;
+    private final Button musicButton;
 
     // Clip
     private Clip backgroundMusic;
@@ -31,6 +38,7 @@ public class SoundManager {
         audioPool = Executors.newFixedThreadPool(6); // Thread pool for audio playback
         audioButton = new AudioButton(40, 10, 24, 24);
         musicButton = new MusicButton(80, 10, 24, 24);
+        loadConfig();
     }
 
     public static SoundManager getInstance() {
@@ -50,8 +58,48 @@ public class SoundManager {
         musicButton.render(g);
     }
 
+    private void loadConfig() {
+        File File = new File("src/main/resources/audio/config.data");
+
+        // load config
+        try {
+            FileReader reader = new FileReader(File);
+            audioMuted = reader.read() == '1';
+            reader.read(); // space
+            musicMuted = reader.read() == '1';
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Can't load audio config");
+            e.printStackTrace();
+            // default config
+            audioMuted = false;
+            musicMuted = false;
+            saveConfig();
+        }
+
+
+    }
+
+    private void saveConfig() {
+        File File = new File("src/main/resources/audio/config.data");
+
+        // save config
+        new Thread(() -> {
+            try {
+                java.io.FileWriter writer = new java.io.FileWriter(File);
+                writer.write(audioMuted ? '1' : '0');
+                writer.write(" ");
+                writer.write(musicMuted ? '1' : '0');
+                writer.close();
+            } catch (Exception e) {
+                System.err.println("Can't save audio config");
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     public void loadAll() {
-        loadBackgroundMusic("src/main/resources/audio/background_music.wav");
+        loadBackgroundMusic();
         loadAudio("normal_brick", "src/main/resources/audio/normal_brick.wav");
         loadAudio("strong_brick", "src/main/resources/audio/strong_brick.wav");
         loadAudio("paddle", "src/main/resources/audio/paddle.wav");
@@ -81,30 +129,34 @@ public class SoundManager {
 
     public void muteMusic() {
         musicMuted = true;
+        saveConfig();
         stopBackgroundMusic();
     }
 
     public void unmuteMusic() {
         musicMuted = false;
+        saveConfig();
         playBackgroundMusic();
     }
 
     public void muteAudio() {
         audioMuted = true;
+        saveConfig();
         stopAllAudio();
     }
 
     public void unmuteAudio() {
         audioMuted = false;
+        saveConfig();
     }
 
     // Background music
-    private void loadBackgroundMusic(String filePath) {
-        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filePath))) {
+    private void loadBackgroundMusic() {
+        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("src/main/resources/audio/background_music.wav"))) {
             backgroundMusic = AudioSystem.getClip();
             backgroundMusic.open(audioStream);
         } catch (Exception e) {
-            System.err.println("Can't load background music: " + filePath);
+            System.err.println("Can't load background music: " + "src/main/resources/audio/background_music.wav");
             e.printStackTrace();
         }
     }

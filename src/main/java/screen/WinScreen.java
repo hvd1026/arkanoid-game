@@ -11,6 +11,12 @@ import java.io.*;
 
 import static util.Constant.SCREEN_WIDTH;
 
+/**
+ * WinScreen class represents the screen displayed when the player wins the game.
+ * It provides options to proceed to the next level, show levels, or return to the menu.
+ * Extends the abstract Screen class.
+ */
+
 public class WinScreen extends Screen {
     private final int level;
     private final NextLevelButton nextLevelButton;
@@ -73,23 +79,21 @@ public class WinScreen extends Screen {
     private void saveLevelData() {
         String filePath = "src/main/resources/maps/level.data";
         File levelFile = new File(filePath);
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(levelFile));
-            oos.writeObject(levelData);
-        } catch (IOException e) {
-            System.err.println("Error saving level data: " + e.getMessage());
-        }
+        new Thread(() -> {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(levelFile))) {
+                oos.writeObject(levelData);
+            } catch (IOException e) {
+                System.err.println("Error saving level data: " + e.getMessage());
+            }
+        }).start();
     }
 
     @Override
     public void update(double deltaTime) {
         // check hover on buttons
-        boolean isHoverOnSomeButton = false;
-        if (MouseHandle.getInstance().isHoverOn(menuButton)
+        boolean isHoverOnSomeButton = MouseHandle.getInstance().isHoverOn(menuButton)
                 || MouseHandle.getInstance().isHoverOn(showLevelsButton)
-                || MouseHandle.getInstance().isHoverOn(nextLevelButton)) {
-            isHoverOnSomeButton = true;
-        }
+                || MouseHandle.getInstance().isHoverOn(nextLevelButton);
 
         // change cursor type
         if (isHoverOnSomeButton) {

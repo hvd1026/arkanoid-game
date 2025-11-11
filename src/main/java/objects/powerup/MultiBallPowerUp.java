@@ -10,22 +10,32 @@ import java.util.ArrayList;
 
 import static util.Constant.POWERUP_MULTIBALL_IMG;
 
+/**
+ * MultiBallPowerUp represents a power-up that, when activated,
+ * duplicates all existing balls in play, creating additional balls.
+ */
+
 public class MultiBallPowerUp extends PowerUp {
 
     public MultiBallPowerUp(float x, float y, int width, int height) {
         super(x, y, width, height);
         setType(PowerUpType.MULTI_BALL);
-        setDuration(0); // hiệu ứng tức thời
+        setDuration(0); // Instant effect power-up
     }
 
     @Override
     public void render(Graphics2D g) {
-        AssetManager.getInstance().draw(g, POWERUP_MULTIBALL_IMG, (int) getX(), (int) getY(), getWidth(), getHeight());
+        AssetManager.getInstance().draw(g,
+                POWERUP_MULTIBALL_IMG,
+                (int) getX(),
+                (int) getY(),
+                getWidth(),
+                getHeight());
     }
 
     @Override
     public void bulkApplyEffect(ArrayList<Ball> balls) {
-        // Nhân bản tất cả bóng hiện có: mỗi bóng sinh thêm 2 bóng theo góc lệch nhỏ
+        // Clone the current balls and add new balls with slight angle variations
         ArrayList<Ball> snapshot = new ArrayList<>(balls);
         float spread = Constant.MULTI_BALL_SPREAD_DEG;
         for (Ball base : snapshot) {
@@ -40,10 +50,14 @@ public class MultiBallPowerUp extends PowerUp {
             float angleLeft = baseAngleDeg - spread;
             float angleRight = baseAngleDeg + spread;
 
-            Ball b1 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
-                    speed * (float) Math.cos(Math.toRadians(angleLeft)), -speed * (float) Math.sin(Math.toRadians(angleLeft)));
-            Ball b2 = new Ball(x, y, 2 * Constant.BALL_RADIUS, 2 * Constant.BALL_RADIUS,
-                    speed * (float) Math.cos(Math.toRadians(angleRight)), -speed * (float) Math.sin(Math.toRadians(angleRight)));
+            Ball b1 = new Ball(x, y, 2 * Constant.BALL_RADIUS,
+                    2 * Constant.BALL_RADIUS,
+                    speed * (float) Math.cos(Math.toRadians(angleLeft)),
+                    -speed * (float) Math.sin(Math.toRadians(angleLeft)));
+            Ball b2 = new Ball(x, y, 2 * Constant.BALL_RADIUS,
+                    2 * Constant.BALL_RADIUS,
+                    speed * (float) Math.cos(Math.toRadians(angleRight)),
+                    -speed * (float) Math.sin(Math.toRadians(angleRight)));
             balls.add(b1);
             balls.add(b2);
         }
@@ -56,7 +70,7 @@ public class MultiBallPowerUp extends PowerUp {
 
     @Override
     public void removeEffect(GameObject o) {
-        // Tức thời – không cần remove
+        // No removal effect needed for MultiBallPowerUp
     }
 }
 
