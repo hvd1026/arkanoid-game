@@ -62,33 +62,39 @@ public class GameScreen extends Screen {
 
         followPaddle(); // ball will follow paddle before game starts
         paddle.update(deltaTime);
-        for (Ball b : balls) {
-            b.update(deltaTime);
-            b.checkCollision(paddle);
+        synchronized (balls) {
+            for (Ball b : balls) {
+                b.update(deltaTime);
+                b.checkCollision(paddle);
+            }
+            // remove balls out of screen
+            balls.removeIf(b -> b.getY() > Constant.SCREEN_HEIGHT);
         }
 
-        // win condition: all normal bricks destroyed
-        int normalBrickCount = 0;
-        for (Brick b : bricks) {
-            if (b instanceof NormalBrick) {
-                normalBrickCount++;
+        synchronized (bricks) {
+            // win condition: all normal bricks destroyed
+            int normalBrickCount = 0;
+            for (Brick b : bricks) {
+                if (b instanceof NormalBrick) {
+                    normalBrickCount++;
+                }
+                for (Ball ballObj : balls) {
+                    ballObj.checkCollision(b);
+                }
+                b.update(deltaTime);
             }
-            for (Ball ballObj : balls) {
-                ballObj.checkCollision(b);
+            if (normalBrickCount == 0) {
+                ScreenManager.getInstance().switchScreen(new WinScreen(level, star));
             }
-            b.update(deltaTime);
-        }
-        if (normalBrickCount == 0) {
-            ScreenManager.getInstance().switchScreen(new WinScreen(level, star));
-        }
 
-        // spawn power-up when brick destroyed
-        Iterator<Brick> it = bricks.iterator();
-        while (it.hasNext()) {
-            Brick b = it.next();
-            if (b.isDestroyed()) {
-                powerUpManager.maybeSpawnPowerUp(b);
-                it.remove();
+            // spawn power-up when brick destroyed
+            Iterator<Brick> it = bricks.iterator();
+            while (it.hasNext()) {
+                Brick b = it.next();
+                if (b.isDestroyed()) {
+                    powerUpManager.maybeSpawnPowerUp(b);
+                    it.remove();
+                }
             }
         }
 
@@ -97,9 +103,6 @@ public class GameScreen extends Screen {
 
         // update active power-ups
         powerUpManager.updateActivePowerUps(deltaTime);
-
-        // remove balls out of screen
-        balls.removeIf(b -> b.getY() > Constant.SCREEN_HEIGHT);
 
         // if no balls left
         if (balls.isEmpty()) {
@@ -120,11 +123,15 @@ public class GameScreen extends Screen {
     public void render(Graphics2D g) {
         AssetManager.getInstance().drawBackground(g);
         paddle.render(g);
-        for (Ball b : balls) {
-            b.render(g);
+        synchronized (balls) {
+            for (Ball b : balls) {
+                b.render(g);
+            }
         }
-        for (Brick b : bricks) { // draw bricks          
-            b.render(g);
+        synchronized (bricks) {
+            for (Brick b : bricks) { // draw bricks
+                b.render(g);
+            }
         }
         for (Brick br : brickLine) {
             br.render(g); // draw brick line at top
@@ -142,7 +149,7 @@ public class GameScreen extends Screen {
                     Constant.STAR_SIZE);
         }
         // render game guide
-        if (showGameGuide){
+        if (showGameGuide) {
             // blink effect
             long now = System.currentTimeMillis() / 250; //
             if (now % 2 == 1)
